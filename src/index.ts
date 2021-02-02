@@ -6,16 +6,7 @@ const rr = Tournament.roundRobin.switchPartners({
   date: new Date(),
 });
 
-rr.addPlayers([
-  'Alejandra',
-  'Sergio',
-  'Ganian',
-  'Dario',
-  'Victor',
-  'Andrea',
-  'Paula',
-  'Wain',
-]);
+rr.addPlayers(['Alejandra', 'Sergio', 'Ganian', 'Dario', 'Victor', 'Andrea', 'Paula', 'Wain']);
 // console.log(rr.players());
 // rr.addPlayers(['alberto', 'ganian', 'juan', 'more', 'time']);
 // rr.logPlayers;

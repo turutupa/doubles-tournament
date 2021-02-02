@@ -2,11 +2,7 @@ import Player from './Player';
 import { Players, isAscending } from './interfaces';
 
 export default class Leaderboard {
-  static sortBy(
-    players: Players,
-    sortable: keyof Player,
-    isAscending?: isAscending
-  ): Player[] {
+  static sortBy(players: Players, sortable: keyof Player, isAscending?: isAscending): Player[] {
     const sorted = Array.from(players, ([_, value]) => value);
 
     return sorted.sort((a: Player, b: Player) => {

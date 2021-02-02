@@ -5,12 +5,7 @@ import PlayersHandler from './PlayersHandler';
 import TeamsHandler from './TeamsHandler';
 import Match from './Match';
 import Leaderboard from './Leaderboard';
-import {
-  TournamentParams,
-  TournamentBuilder,
-  isAscending,
-  ScheduleInformation,
-} from './interfaces';
+import { TournamentParams, TournamentBuilder, isAscending, ScheduleInformation } from './interfaces';
 import { inAWeekFromDateNow } from './constants';
 
 export default class Tournament {
@@ -37,8 +32,7 @@ export default class Tournament {
     this.date = params.date || inAWeekFromDateNow;
     this.price = params.price || 0;
     this.maxNumberOfPlayers = params.maxNumberOfPlayers || 15;
-    this._players =
-      params.players || new PlayersHandler() || new TeamsHandler();
+    this._players = params.players || new PlayersHandler() || new TeamsHandler();
     this.id = 'this is for database identification right?';
     this.tournament = params.tournament;
   }
@@ -55,9 +49,7 @@ export default class Tournament {
     return this._players.addPlayers;
   }
 
-  private convertScheduleInformationToSchedule(
-    scheduleInfo: ScheduleInformation
-  ): Match[][] {
+  private convertScheduleInformationToSchedule(scheduleInfo: ScheduleInformation): Match[][] {
     return scheduleInfo.schedule.map((round: string[]) => {
       return round.map((match: string) => {
         return this._schedule.matches[match];

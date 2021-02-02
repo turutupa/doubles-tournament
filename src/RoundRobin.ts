@@ -1,11 +1,4 @@
-import {
-  TournamentDetails,
-  TournamentBuilder,
-  Players,
-  Teams,
-  ScheduleInformation,
-  MatchesMap,
-} from './interfaces';
+import { TournamentDetails, TournamentBuilder, Players, Teams, ScheduleInformation, MatchesMap } from './interfaces';
 import Tournament from './Tournament';
 import Match from './Match';
 import Player from './Player';
@@ -62,11 +55,7 @@ function createTeamsFromPlayers(p: Players): ScheduleInformation {
     const rotatingPlayer: Player = secondHalf[0];
     const excludedFirstHalfPlayer: Player = firstHalf[firstHalf.length - 1];
 
-    firstHalf = [
-      firstHalf[0],
-      rotatingPlayer,
-      ...firstHalf.slice(1, center - 1),
-    ];
+    firstHalf = [firstHalf[0], rotatingPlayer, ...firstHalf.slice(1, center - 1)];
 
     secondHalf = [...secondHalf.slice(1), excludedFirstHalfPlayer];
 

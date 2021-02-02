@@ -11,7 +11,7 @@ export default class Match {
     public locals: Team,
     public visitors: Team,
     public court?: string,
-    public time?: string
+    public time?: string,
   ) {
     this.id = id;
     this.locals = locals;

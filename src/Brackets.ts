@@ -1,10 +1,4 @@
-import {
-  TournamentDetails,
-  TournamentBuilder,
-  Teams,
-  ScheduleInformation,
-  MatchesMap,
-} from './interfaces';
+import { TournamentDetails, TournamentBuilder, Teams, ScheduleInformation, MatchesMap } from './interfaces';
 import Tournament from './Tournament';
 
 export default class Brackets {

@@ -1,12 +1,23 @@
 {
-  "author": "Alberto Delgado <>", 
+  "author": "Alberto Delgado <>",
   "name": "doubles-tournament",
   "version": "1.0.0",
   "description": "Create doubles tournaments for games like tenis, table tennis, padel, bridge, etc",
+  "homepage": "https://github.com/turutupa/doubles-tournament",
   "main": "lib/doubles-tournament.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint --project \"tsconfig.json\"",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "keywords": [
     "tournament",
     "doubles",
@@ -19,5 +30,14 @@
     "ping pong",
     "tablet tennis"
   ],
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.0",
+    "tslint": "^5.0.0-dev.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.1.3"
+  }
 }
