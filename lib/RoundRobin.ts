@@ -12,10 +12,10 @@ import Player from './Player';
 import Team from './Team';
 
 export default class RoundRobin {
-  rotatingPartners(params?: TournamentDetails): Tournament {
+  switchPartners(params?: TournamentDetails): Tournament {
     return new Tournament({
       ...params,
-      tournament: new RoundRobinRotatingPartners(),
+      tournament: new RoundRobinSwitchPartners(),
     });
   }
 
@@ -27,7 +27,7 @@ export default class RoundRobin {
   }
 }
 
-class RoundRobinRotatingPartners implements TournamentBuilder {
+class RoundRobinSwitchPartners implements TournamentBuilder {
   getSchedule(players: Players): ScheduleInformation {
     return createTeamsFromPlayers(players);
   }
@@ -47,6 +47,8 @@ function createTeamsFromPlayers(p: Players): ScheduleInformation {
   for (let [_, player] of p) {
     players.push(player);
   }
+
+  if (players.length % 4 != 0) throw `Must be multiple of 4 players`;
 
   const center: number = Math.ceil(players.length / 2);
   let firstHalf = [...players.slice(0, center)];
@@ -68,12 +70,9 @@ function createTeamsFromPlayers(p: Players): ScheduleInformation {
 
     secondHalf = [...secondHalf.slice(1), excludedFirstHalfPlayer];
 
-    for (let j = 0; j < Math.floor(firstHalf.length / 2); j++) {
+    for (let j = 0; j < Math.floor(firstHalf.length); j = j + 2) {
       const locals = new Team(firstHalf[j], secondHalf[j]);
-      const visitors = new Team(
-        firstHalf[firstHalf.length - 1 - j],
-        secondHalf[secondHalf.length - 1 - j]
-      );
+      const visitors = new Team(firstHalf[j + 1], secondHalf[j + 1]);
       const stringifiedMatchId: string = String(matchId);
       const match = new Match(stringifiedMatchId, locals, visitors);
       matches[stringifiedMatchId] = match;

@@ -1,0 +1,23 @@
+{
+  "author": "Alberto Delgado <>", 
+  "name": "doubles-tournament",
+  "version": "1.0.0",
+  "description": "Create doubles tournaments for games like tenis, table tennis, padel, bridge, etc",
+  "main": "lib/doubles-tournament.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tournament",
+    "doubles",
+    "round robin",
+    "round",
+    "robin",
+    "brackets",
+    "padel",
+    "tenis",
+    "ping pong",
+    "tablet tennis"
+  ],
+  "license": "ISC"
+}

@@ -1,6 +1,6 @@
 import Tournament from './Tournament';
 
-const rr = Tournament.roundRobin.rotatingPartners({
+const rr = Tournament.roundRobin.switchPartners({
   price: 15,
   name: 'Benissa Padel Tour',
   date: new Date(),
