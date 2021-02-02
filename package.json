@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Create doubles tournaments for games like tenis, table tennis, padel, bridge, etc",
   "homepage": "https://github.com/turutupa/doubles-tournament",
-  "main": "lib/doubles-tournament.ts",
+  "main": "lib/doubles-tournament.js",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc",
