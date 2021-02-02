@@ -1,11 +1,12 @@
 {
   "author": "Alberto Delgado <>",
   "name": "doubles-tournament",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create doubles tournaments for games like tenis, table tennis, padel, bridge, etc",
   "homepage": "https://github.com/turutupa/doubles-tournament",
   "main": "lib/doubles-tournament.js",
   "scripts": {
+    "commit": "git-cz",
     "test": "jest --config jestconfig.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
