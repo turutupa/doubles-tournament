@@ -6,27 +6,28 @@ const rr = Tournament.roundRobin.switchPartners({
   date: new Date(),
 });
 
-rr.addPlayers(['Alejandra', 'Sergio', 'Ganian', 'Dario', 'Victor', 'Andrea', 'Paula', 'Wain']);
+rr.log;
+
+// rr.addPlayers(['Alejandra', 'Sergio', 'Ganian', 'Dario', 'Victor', 'Andrea', 'Paula', 'Wain']);
 // console.log(rr.players());
 // rr.addPlayers(['alberto', 'ganian', 'juan', 'more', 'time']);
 // rr.logPlayers;
 // console.log(rr.newSchedule());
-rr.newSchedule();
+// rr.newSchedule();
 
-// console.log(JSON.stringify(rr.schedule, null, 2));
-const schedule = rr.schedule.map((round, index) => {
-  return round.map((match) => {
-    const [localOne, localTwo] = match.locals.getTeam();
-    const [visitorOne, visitorTwo] = match.visitors.getTeam();
+// const schedule = rr.schedule.map((round, index) => {
+//   return round.map((match) => {
+//     const [localOne, localTwo] = match.locals.getTeam();
+//     const [visitorOne, visitorTwo] = match.visitors.getTeam();
 
-    return ` Round ${index + 1}
-        ${localOne.name} & ${localTwo.name}
-        ${visitorOne.name} & ${visitorTwo.name}
-      `;
-  });
-});
+//     return ` Round ${index + 1}
+//         ${localOne.name} & ${localTwo.name}
+//         ${visitorOne.name} & ${visitorTwo.name}
+//       `;
+//   });
+// });
 
-console.log(schedule);
+// console.log(schedule);
 
 // console.log(rr.leaderboard('wins'));
 

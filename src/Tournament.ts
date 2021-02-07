@@ -5,8 +5,10 @@ import PlayersHandler from './PlayersHandler';
 import TeamsHandler from './TeamsHandler';
 import Match from './Match';
 import Leaderboard from './Leaderboard';
-import { TournamentParams, TournamentBuilder, isAscending, ScheduleInformation } from './interfaces';
+import { TournamentParams, TournamentBuilder, isAscending, ScheduleInfo } from './interfaces';
 import { inAWeekFromDateNow } from './constants';
+
+type ParticipantsHandler = PlayersHandler | TeamsHandler;
 
 export default class Tournament {
   static get roundRobin(): RoundRobin {
@@ -21,35 +23,34 @@ export default class Tournament {
   public name: string;
   public date: Date;
   public price: number;
-  private _players: PlayersHandler;
   public maxNumberOfPlayers: number;
-  public tournament: TournamentBuilder;
-  private _leaderboard: Leaderboard = new Leaderboard();
-  private _schedule: ScheduleInformation = { schedule: [], matches: {} };
+  private tournament: TournamentBuilder;
+  private _players: PlayersHandler | TeamsHandler;
+  private _schedule: ScheduleInfo = { schedule: [], matches: {} };
 
   constructor(private params: TournamentParams) {
     this.name = params.name || 'Please, set a name';
     this.date = params.date || inAWeekFromDateNow;
     this.price = params.price || 0;
     this.maxNumberOfPlayers = params.maxNumberOfPlayers || 15;
-    this._players = params.players || new PlayersHandler() || new TeamsHandler();
+    this._players = params.players;
     this.id = 'this is for database identification right?';
     this.tournament = params.tournament;
   }
 
-  get players() {
-    return this._players.players;
-  }
+  // get players() {
+  //   return this._players.players;
+  // }
 
-  get addPlayer() {
-    return this._players.addPlayer;
-  }
+  // get addPlayer() {
+  //   return this._players.addPlayer;
+  // }
 
-  get addPlayers() {
-    return this._players.addPlayers;
-  }
+  // get addPlayers() {
+  //   return this._players.addPlayers;
+  // }
 
-  private convertScheduleInformationToSchedule(scheduleInfo: ScheduleInformation): Match[][] {
+  private convertScheduleInfoToSchedule(scheduleInfo: ScheduleInfo): Match[][] {
     return scheduleInfo.schedule.map((round: string[]) => {
       return round.map((match: string) => {
         return this._schedule.matches[match];
@@ -67,11 +68,11 @@ export default class Tournament {
     }
     this._schedule = this.tournament.getSchedule(this._players.players());
 
-    return this.convertScheduleInformationToSchedule(this._schedule);
+    return this.convertScheduleInfoToSchedule(this._schedule);
   }
 
   get schedule() {
-    return this.convertScheduleInformationToSchedule(this._schedule);
+    return this.convertScheduleInfoToSchedule(this._schedule);
   }
 
   get log(): Tournament {
@@ -86,7 +87,7 @@ export default class Tournament {
   }
 
   get logPlayers(): Tournament {
-    console.log(this.players());
+    console.log(this._players.players());
     return this;
   }
 
