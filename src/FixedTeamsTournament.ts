@@ -5,7 +5,7 @@ import TeamsHandler from 'TeamsHandler';
 export default class FixedTeamsTournament extends Tournament<TeamsHandler> {
   protected participants = new TeamsHandler();
 
-  constructor(params: TournamentParams) {
+  constructor(params?: TournamentParams) {
     super(params);
   }
 

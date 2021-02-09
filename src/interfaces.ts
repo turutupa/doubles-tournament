@@ -8,20 +8,12 @@ export interface HasID {
   id: string;
 }
 
-export type TournamentDetails = {
-  id?: string;
-  players?: PlayersHandler;
-  name?: string;
-  date?: Date;
-  price?: number;
-  maxNumberOfPlayers?: number;
-};
-
 export type TournamentParams = {
   id?: string;
   name?: string;
   date?: Date;
   price?: number;
+  location?: string;
   maxNumberOfPlayers?: number;
 };
 

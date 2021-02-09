@@ -29,7 +29,7 @@ export default class SwitchTournament extends Tournament<PlayersHandler> {
         with same players use resetTournament
       `);
     }
-    this._schedule = this._scheduleBuilder.calculate(this.participants.players());
+    this._schedule = this._scheduleBuilder.calculate(this.participants.players);
 
     return this.convertScheduleInfoToSchedule(this._schedule);
   }

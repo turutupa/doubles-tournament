@@ -90,8 +90,8 @@ export default class SwitchRoundRobin {
       if (!firstLocal || !secondLocal || !firstVisitor || !secondVisitor)
         throw new Error(`Something went wrong getting players while creating matches`);
 
-      const locals: Team = new Team(firstLocal, secondLocal);
-      const visitors: Team = new Team(firstVisitor, secondVisitor);
+      const locals: Team = new Team([firstLocal, secondLocal]);
+      const visitors: Team = new Team([firstVisitor, secondVisitor]);
 
       // Create new match and assign to matchesMap and add to roundOfIDs
       const randomID: number = uuid();

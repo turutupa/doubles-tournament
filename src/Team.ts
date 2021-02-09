@@ -1,5 +1,6 @@
-import Player from './Player';
+import Player from 'Player';
 import { ParticipantParams } from 'interfaces';
+import { uuid } from 'helpers';
 export default class Team implements ParticipantParams {
   public id: string;
   public team: [Player, Player];
@@ -8,9 +9,9 @@ export default class Team implements ParticipantParams {
   public games: number = 0;
   public sets: number = 0;
 
-  constructor(private players: [Player, Player], id: string) {
+  constructor(private players: [Player, Player], id?: string) {
     const [firstPlayer, secondPlayer] = players;
     this.team = [firstPlayer, secondPlayer];
-    this.id = id;
+    this.id = id ? String(id) : String(uuid());
   }
 }

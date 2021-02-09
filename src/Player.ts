@@ -7,31 +7,34 @@ export default class Player implements ParticipantParams {
   public sets: number;
   public id: string;
 
-  constructor(public name: string) {
-    this.id = name;
-    this.name = name;
+  constructor(id: string) {
+    this.id = id;
     this.wins = 0;
     this.losses = 0;
     this.games = 0;
     this.sets = 0;
   }
 
-  setName(name: string): Player {
-    this.name = name;
+  public get name(): string {
+    return this.id;
+  }
+
+  public setName(name: string): Player {
+    this.id = name;
     return this;
   }
 
-  addWonGames(games: number): Player {
+  public addWonGames(games: number): Player {
     this.games = this.games + games;
     return this;
   }
 
-  addWonSets(sets: number): Player {
+  public addWonSets(sets: number): Player {
     this.sets = this.sets + sets;
     return this;
   }
 
-  addMatchWin(wins?: number): Player {
+  public addMatchWin(wins?: number): Player {
     if (wins) {
       this.wins = this.wins + wins;
       return this;
@@ -41,7 +44,7 @@ export default class Player implements ParticipantParams {
     return this;
   }
 
-  addMatchLosses(losses?: number): Player {
+  public addMatchLosses(losses?: number): Player {
     if (losses) {
       this.losses = this.losses + losses;
       return this;
@@ -53,7 +56,7 @@ export default class Player implements ParticipantParams {
 
   // i hate this implementation but I didn't know
   // how to add class indexer
-  addResults(results: MatchResults): Player {
+  public addResults(results: MatchResults): Player {
     if (results.wins) {
       this.wins = this.wins + results.wins;
     }

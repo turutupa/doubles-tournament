@@ -1,13 +1,12 @@
 import RoundRobin from 'RoundRobin/RoundRobin';
-import Brackets from 'Brackets';
-import { TournamentParams } from 'interfaces';
+import Brackets from 'Brackets/Brackets';
 
 export default class TournamentFactory {
-  static RoundRobin(params?: TournamentParams) {
-    return RoundRobin;
+  public static get RoundRobin() {
+    return new RoundRobin();
   }
 
-  static Brackets(params?: TournamentParams) {
-    return Brackets;
+  public static get Brackets() {
+    return new Brackets();
   }
 }

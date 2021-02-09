@@ -8,7 +8,7 @@ export default class PlayersHandler implements GetParticipants {
     return this._players;
   }
 
-  public players(): Players {
+  public get players(): Players {
     return this._players;
   }
 

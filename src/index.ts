@@ -1,12 +1,24 @@
-import Tournament from './Tournament';
+import Tournament from './doubles-tournament';
 
-const rr = Tournament.roundRobin.switchPartners({
+const { RoundRobin } = Tournament;
+
+const t = RoundRobin.switchPartners({
   price: 15,
-  name: 'Benissa Padel Tour',
-  date: new Date(),
+  name: 'Padeliers',
+  location: 'LaMaso',
 });
 
-rr.log;
+const s = Tournament.Brackets.singleElimination();
+
+t.addPlayers(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']);
+console.log(t.leaderboard('losses', 'descending').map((player) => player.id));
+// const rr = Tournament.roundRobin.switchPartners({
+//   price: 15,
+//   name: 'Benissa Padel Tour',
+//   date: new Date(),
+// });
+
+// rr.log;
 
 // rr.addPlayers(['Alejandra', 'Sergio', 'Ganian', 'Dario', 'Victor', 'Andrea', 'Paula', 'Wain']);
 // console.log(rr.players());
