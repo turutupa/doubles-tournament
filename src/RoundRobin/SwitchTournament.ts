@@ -2,7 +2,7 @@ import Tournament from 'Tournament';
 import Match from 'Match';
 import { TournamentParams, ScheduleInfo } from 'interfaces';
 import PlayersHandler from 'PlayersHandler';
-import RRSwitchCalculator from 'RoundRobin/SwitchCalculator';
+import RRSwitchCalculator from 'RoundRobin/SwitchScheduler';
 
 export default class SwitchTournament extends Tournament<PlayersHandler> {
   protected participants = new PlayersHandler();

@@ -1,4 +1,4 @@
-import Tournament from './doubles-tournament';
+import Tournament from 'doubles-tournament';
 
 const { RoundRobin } = Tournament;
 
