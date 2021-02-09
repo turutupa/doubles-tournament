@@ -1,7 +1,8 @@
 import { TournamentDetails, TournamentBuilder, Teams, ScheduleInfo, MatchesMap } from './interfaces';
 import Tournament from './Tournament';
 import PlayersHandler from './PlayersHandler';
-import RoundRobinSwitchPartners from './RoundRobin/RRSwitchPartners';
+import RoundRobinSwitchPartners from 'RoundRobin/RRSwitchPartners';
+import RoundRobinFixedTeams from 'RoundRobin/RRFixedTeams';
 
 export default class RoundRobin {
   switchPartners(params?: TournamentDetails): Tournament {
@@ -18,14 +19,5 @@ export default class RoundRobin {
       players: new PlayersHandler(),
       tournament: new RoundRobinFixedTeams(),
     });
-  }
-}
-
-class RoundRobinFixedTeams implements TournamentBuilder {
-  getSchedule(teams: Teams): ScheduleInfo {
-    return {
-      schedule: [],
-      matches: {},
-    };
   }
 }
