@@ -1,19 +1,18 @@
-import Player from './Player';
-import { Players, isAscending } from './interfaces';
+import { ParticipantParams, IsParticipant, isAscending, ASCENDING } from './interfaces';
 
 export default class Leaderboard {
-  static sortBy(players: Players, sortable: keyof Player, isAscending?: isAscending): Player[] {
-    const sorted = Array.from(players, ([_, value]) => value);
+  static sortBy(participants: IsParticipant, sortable: keyof ParticipantParams, isAscending?: isAscending) {
+    const sorted = [...participants.values()];
 
-    return sorted.sort((a: Player, b: Player) => {
+    return sorted.sort((a: ParticipantParams, b: ParticipantParams) => {
       if (typeof a[sortable] === 'string') {
-        if (isAscending) {
+        if (isAscending === ASCENDING) {
           return String(a[sortable]).localeCompare(String(b[sortable]));
         }
 
         return String(b[sortable]).localeCompare(String(a[sortable]));
       } else if (typeof a[sortable] === 'number') {
-        const ascending = isAscending ? 1 : -1;
+        const ascending = isAscending === ASCENDING ? 1 : -1;
 
         return ascending * (Number(a[sortable]) - Number(b[sortable]));
       }

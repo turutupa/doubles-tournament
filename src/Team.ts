@@ -1,12 +1,16 @@
 import Player from './Player';
-import { uuid } from './helpers';
-
-export default class Team {
-  public id: number = uuid();
-  public wins?: number = 0;
-  public losses?: number = 0;
+import { ParticipantParams } from 'interfaces';
+export default class Team implements ParticipantParams {
+  public id: string;
   public team: [Player, Player];
-  constructor(private firstPlayer: Player, private secondPlayer: Player) {
+  public wins: number = 0;
+  public losses: number = 0;
+  public games: number = 0;
+  public sets: number = 0;
+
+  constructor(private players: [Player, Player], id: string) {
+    const [firstPlayer, secondPlayer] = players;
     this.team = [firstPlayer, secondPlayer];
+    this.id = id;
   }
 }

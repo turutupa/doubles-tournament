@@ -1,13 +1,21 @@
-import { Players } from './interfaces';
+import { Players, GetParticipants } from './interfaces';
 import Player from './Player';
 
-export default class PlayersHandler {
+export default class PlayersHandler implements GetParticipants {
   private _players: Players = new Map<string, Player>();
 
-  addPlayers = (players: string[]): Players => {
+  public participants(): Players {
+    return this._players;
+  }
+
+  public players(): Players {
+    return this._players;
+  }
+
+  public addPlayers = (players: string[]): Players => {
     // Before adding players first check if
-    // all players are unique and also don't
-    // have already existing player in this._players
+    // all players are unique and also it
+    // doesn't already exist in this._players
     if (players.length != new Set(players).size) {
       throw `Please provide unique names of players`;
     }
@@ -32,10 +40,6 @@ export default class PlayersHandler {
       this._players.set(name, new Player(name));
     }
 
-    return this._players;
-  };
-
-  players = (): Players => {
     return this._players;
   };
 }

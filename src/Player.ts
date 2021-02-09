@@ -1,17 +1,14 @@
-interface UpdateableParams {
-  wins?: number;
-  losses?: number;
-  games?: number;
-  sets?: number;
-}
+import { ParticipantParams, MatchResults } from 'interfaces';
 
-export default class Player {
+export default class Player implements ParticipantParams {
   public wins: number;
   public losses: number;
   public games: number;
   public sets: number;
+  public id: string;
 
   constructor(public name: string) {
+    this.id = name;
     this.name = name;
     this.wins = 0;
     this.losses = 0;
@@ -56,7 +53,7 @@ export default class Player {
 
   // i hate this implementation but I didn't know
   // how to add class indexer
-  addResults(results: UpdateableParams): Player {
+  addResults(results: MatchResults): Player {
     if (results.wins) {
       this.wins = this.wins + results.wins;
     }
