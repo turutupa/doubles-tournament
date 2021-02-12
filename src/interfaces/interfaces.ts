@@ -1,8 +1,8 @@
-import Player from './Player';
-import Team from './Team';
-import Match from './Match';
-import PlayersHandler from './PlayersHandler';
-import TeamsHandler from './TeamsHandler';
+import Player from '@models/Player';
+import Team from '@models/Team';
+import Match from '@models/Match';
+import PlayersHandler from '@handlers/PlayersHandler';
+import TeamsHandler from '@handlers/TeamsHandler';
 
 export interface HasID {
   id: string;

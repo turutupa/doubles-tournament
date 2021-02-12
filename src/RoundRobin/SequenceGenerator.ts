@@ -1,5 +1,4 @@
-import Player from '../Player';
-// import Players from '../Player';
+import Player from '@models/Player';
 
 export default class SequenceGenerator {
   static calculate(players: Player[]): number[][] {

@@ -1,6 +1,6 @@
-import { TournamentParams } from 'interfaces';
-import RRSwitchPartners from 'RoundRobin/SwitchTournament';
-import RRFixedTeams from 'RoundRobin/FixedTeamsTournament';
+import { TournamentParams } from '@interfaces/interfaces';
+import RRSwitchPartners from '@roundrobin/SwitchTournament';
+import RRFixedTeams from '@roundrobin/FixedTeamsTournament';
 
 export default class RoundRobin {
   public switchPartners(params?: TournamentParams) {

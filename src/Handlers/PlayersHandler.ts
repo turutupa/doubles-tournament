@@ -1,5 +1,5 @@
-import { Players, GetParticipants } from './interfaces';
-import Player from './Player';
+import { Players, GetParticipants } from '@interfaces/interfaces';
+import Player from '@models/Player';
 
 export default class PlayersHandler implements GetParticipants {
   private _players: Players = new Map<string, Player>();

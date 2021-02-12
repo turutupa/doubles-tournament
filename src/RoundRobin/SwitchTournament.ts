@@ -1,13 +1,12 @@
-import Tournament from 'Tournament';
-import Match from 'Match';
-import { TournamentParams, ScheduleInfo } from 'interfaces';
-import PlayersHandler from 'PlayersHandler';
-import RRSwitchCalculator from 'RoundRobin/SwitchScheduler';
-
+import Tournament from '@models/Tournament';
+import Match from '@models/Match';
+import { TournamentParams, ScheduleInfo } from '@interfaces/interfaces';
+import PlayersHandler from '@handlers/PlayersHandler';
+import SwitchScheduler from '@roundrobin/SwitchScheduler';
 export default class SwitchTournament extends Tournament<PlayersHandler> {
   protected participants = new PlayersHandler();
   private _schedule: ScheduleInfo = { schedule: [], matches: {} };
-  private _scheduleBuilder = RRSwitchCalculator;
+  private _scheduleBuilder = SwitchScheduler;
 
   constructor(params?: TournamentParams) {
     super(params);

@@ -1,10 +1,10 @@
-import Player from '../Player';
-import { Players, ScheduleInfo, MatchesMap } from '../interfaces';
-import SequenceGenerator from './SequenceGenerator';
+import Player from '@models/Player';
+import { Players, ScheduleInfo, MatchesMap } from '@interfaces/interfaces';
+import SequenceGenerator from '@roundrobin/SequenceGenerator';
 import TABLES, { Table } from './tables';
-import Match from '../Match';
-import Team from '../Team';
-import { uuid } from '../helpers';
+import Match from '@models/Match';
+import Team from '@models/Team';
+import { uuid } from '@helpers/uuid';
 
 export default class SwitchRoundRobin {
   static calculate(players: Players): ScheduleInfo {

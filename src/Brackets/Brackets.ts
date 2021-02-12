@@ -1,4 +1,4 @@
-import { TournamentParams } from 'interfaces';
+import { TournamentParams } from '@interfaces/interfaces';
 import SingleElimination from './SingleElimination';
 import DoubleElimination from './DoubleElimination';
 

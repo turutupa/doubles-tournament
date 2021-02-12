@@ -1,29 +1,36 @@
-import Tournament from 'doubles-tournament';
+import Tournament from '@views/TournamentFactory';
+import Player from '@models/Player';
+import Team from '@models/Team';
+import Match from '@models/Match';
 
-const { RoundRobin } = Tournament;
+export default Tournament;
+export { Player, Team, Match };
 
-const t = RoundRobin.switchPartners({
-  price: 15,
-  name: 'Padeliers',
-  location: 'LaMaso',
-});
+console.log('hell yeah');
 
-const s = Tournament.Brackets.singleElimination();
+// const { RoundRobin } = Tournament;
 
-t.addPlayers(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']);
-console.log(t.leaderboard('losses', 'descending').map((player) => player.id));
-// const rr = Tournament.roundRobin.switchPartners({
+// const t = RoundRobin.switchPartners({
 //   price: 15,
-//   name: 'Benissa Padel Tour',
-//   date: new Date(),
+//   name: 'Padeliers',
+//   location: 'LaMaso',
 // });
 
-// rr.log;
+// const s = Tournament.Brackets.singleElimination();
 
-// rr.addPlayers(['Alejandra', 'Sergio', 'Ganian', 'Dario', 'Victor', 'Andrea', 'Paula', 'Wain']);
-// console.log(rr.players());
+// t.addPlayers(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']);
+// console.log(t.leaderboard('losses', 'descending').map((player) => player.id));
+const rr = Tournament.RoundRobin.switchPartners({
+  price: 15,
+  name: 'Benissa Padel Tour',
+  date: new Date(),
+});
+
+rr.log;
+
+// rr.addPlayers(['turutupa', 'Sergio', 'Ganian', 'Dario', 'Victor', 'Andrea', 'Paula', 'Wain']);
 // rr.addPlayers(['alberto', 'ganian', 'juan', 'more', 'time']);
-// rr.logPlayers;
+// console.log(rr.players);
 // console.log(rr.newSchedule());
 // rr.newSchedule();
 

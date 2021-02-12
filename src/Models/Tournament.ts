@@ -1,6 +1,6 @@
-import Leaderboard from 'Leaderboard/Leaderboard';
-import { TournamentParams, ParticipantHandler, ParticipantParams, isAscending } from './interfaces';
-import { inAWeekFromDateNow } from './constants';
+import Leaderboard from '@models/Leaderboard';
+import { TournamentParams, ParticipantHandler, ParticipantParams, isAscending } from '@interfaces/interfaces';
+import { inAWeekFromDateNow } from '@/constants';
 
 export default abstract class Tournament<T extends ParticipantHandler> {
   public id: string;
@@ -27,9 +27,9 @@ export default abstract class Tournament<T extends ParticipantHandler> {
   get log(): Tournament<T> {
     console.log(`
     name: ${this.name}
-      date: ${this.date}
-      price: ${this.price}
-      size: ${this.maxNumberOfPlayers} players
+    date: ${this.date}
+    price: ${this.price}
+    size: ${this.maxNumberOfPlayers} players
     `);
     return this;
   }

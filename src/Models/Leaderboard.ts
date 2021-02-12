@@ -1,4 +1,4 @@
-import { ParticipantParams, IsParticipant, isAscending, ASCENDING } from 'interfaces';
+import { ParticipantParams, IsParticipant, isAscending, ASCENDING } from '@interfaces/interfaces';
 
 export default class Leaderboard {
   static sortBy(participants: IsParticipant, sortable: keyof ParticipantParams, isAscending?: isAscending) {

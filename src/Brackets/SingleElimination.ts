@@ -1,6 +1,6 @@
-import Tournament from 'Tournament';
-import { TournamentParams, Scheduler, Teams, ScheduleInfo } from 'interfaces';
-import TeamsHandler from 'TeamsHandler';
+import Tournament from '@models/Tournament';
+import { TournamentParams, Scheduler, Teams, ScheduleInfo } from '@interfaces/interfaces';
+import TeamsHandler from '@handlers/TeamsHandler';
 
 export default class BracketsSingleElimination extends Tournament<TeamsHandler> {
   public participants: TeamsHandler = new TeamsHandler();

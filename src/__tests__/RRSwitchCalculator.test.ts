@@ -1,6 +1,6 @@
-import SWitchCalculator from '../RoundRobin/SwitchCalculator';
-import Player from '../Player';
-import { Players } from '../interfaces';
+import SwitchCalculator from '@roundrobin/SwitchScheduler';
+import Player from '@models/Player';
+import { Players } from '@interfaces/interfaces';
 
 test('Switch Round Robin for eight players should equal', () => {
   const p: Players = new Map();
@@ -13,7 +13,7 @@ test('Switch Round Robin for eight players should equal', () => {
   p.set('seven', new Player('seven'));
   p.set('eight', new Player('eight'));
 
-  const tournament = SWitchCalculator.calculate(p);
+  const tournament = SwitchCalculator.calculate(p);
   expect(tournament.rawSchedule).toEqual(eightPlayerTounrament);
 });
 

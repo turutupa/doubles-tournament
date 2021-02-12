@@ -1,4 +1,16 @@
 {
+  "moduleNameMapper": {
+    "@/(.*)": ["<rootDir>/src/$1"],
+    "@handlers/(.*)": "<rootDir>/src/Handlers/$1",
+    "@models/(.*)": "<rootDir>/src/Models/$1",
+    "@views/(.*)": "<rootDir>/src/Views/$1",
+    "@brackets/(.*)": "<rootDir>/src/Brackets/$1",
+    "@roundrobin/(.*)": "<rootDir>/src/RoundRobin/$1",
+    "@helpers/(.*)": "<rootDir>/src/helpers/$1",
+    "@interfaces/(.*)": "<rootDir>/src/interfaces/$1",
+    "@tests/(.*)": "<rootDir>/src/__tests__/$1"
+  },
+  "testPathDirs": ["src/__tests__/"],
   "transform": {
     "^.+\\.(t|j)sx?$": "ts-jest"
   },

@@ -1,6 +1,6 @@
-import Player from 'Player';
-import { ParticipantParams } from 'interfaces';
-import { uuid } from 'helpers';
+import Player from '@models/Player';
+import { ParticipantParams } from '@interfaces/interfaces';
+import { uuid } from '@helpers/uuid';
 export default class Team implements ParticipantParams {
   public id: string;
   public team: [Player, Player];

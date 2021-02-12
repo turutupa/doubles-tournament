@@ -1,7 +1,7 @@
-import Player from './Player';
-import Team from 'Team';
-import { GetParticipants, Teams } from 'interfaces';
-import { uuid } from 'helpers';
+import Player from '@models/Player';
+import Team from '@models/Team';
+import { GetParticipants, Teams } from '@interfaces/interfaces';
+import { uuid } from '@helpers/uuid';
 
 export default class TeamsHandler implements GetParticipants {
   private _teams: Teams = new Map();

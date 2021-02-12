@@ -1,5 +1,5 @@
-import RoundRobin from 'RoundRobin/RoundRobin';
-import Brackets from 'Brackets/Brackets';
+import RoundRobin from '@roundrobin/RoundRobin';
+import Brackets from '@brackets/Brackets';
 
 export default class TournamentFactory {
   public static get RoundRobin() {

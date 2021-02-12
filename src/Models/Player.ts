@@ -1,4 +1,4 @@
-import { ParticipantParams, MatchResults } from 'interfaces';
+import { ParticipantParams, MatchResults } from '@interfaces/interfaces';
 
 export default class Player implements ParticipantParams {
   public wins: number;

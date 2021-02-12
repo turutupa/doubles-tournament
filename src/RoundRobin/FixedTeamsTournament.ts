@@ -1,6 +1,6 @@
-import Tournament from 'Tournament';
-import { TournamentParams } from 'interfaces';
-import TeamsHandler from 'TeamsHandler';
+import Tournament from '@models/Tournament';
+import { TournamentParams } from '@interfaces/interfaces';
+import TeamsHandler from '@handlers/TeamsHandler';
 
 export default class FixedTeamsTournament extends Tournament<TeamsHandler> {
   protected participants = new TeamsHandler();
