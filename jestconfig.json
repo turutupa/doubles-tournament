@@ -7,7 +7,7 @@
     "@brackets/(.*)": "<rootDir>/src/Models/Brackets/$1",
     "@roundrobin/(.*)": "<rootDir>/src/Models/RoundRobin/$1",
     "@utils/(.*)": "<rootDir>/src/utils/$1",
-    "@interfaces/(.*)": "<rootDir>/src/interfaces/$1",
+    "@interfaces/(.*)": "<rootDir>/src/Interfaces/$1",
     "@tests/(.*)": "<rootDir>/src/__tests__/$1"
   },
   "roots": ["src/__tests__/"],

@@ -17,7 +17,7 @@
       "@brackets/*": ["Models/Brackets/*"],
       "@roundrobin/*": ["Models/RoundRobin/*"],
       "@utils/*": ["utils/*"],
-      "@interfaces/*": ["interfaces/*"],
+      "@interfaces/*": ["Interfaces/*"],
       "@tests/*": ["__tests__/*"]
     },
     "skipLibCheck": true,
