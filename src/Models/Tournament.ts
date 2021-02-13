@@ -1,4 +1,4 @@
-import Leaderboard from '@models/Leaderboard';
+import Leaderboard from '@controllers/Leaderboard';
 import { TournamentParams, ParticipantHandler, ParticipantParams, isAscending } from '@interfaces/interfaces';
 import { inAWeekFromDateNow } from '@/constants';
 
