@@ -1,4 +1,4 @@
-import SwitchCalculator from '@roundrobin/SwitchScheduler';
+import SwitchCalculator from '@roundrobin/SwitchPartnersScheduler';
 import Player from '@models/Player';
 import { Players } from '@interfaces/interfaces';
 

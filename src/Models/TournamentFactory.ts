@@ -1,4 +1,4 @@
-import RoundRobin from '@roundrobin/RoundRobin';
+import RoundRobin from '@roundrobin/RoundRobinFactory';
 import Brackets from '@brackets/Brackets';
 
 export default class TournamentFactory {

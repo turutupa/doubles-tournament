@@ -1,7 +1,7 @@
 {
   "moduleNameMapper": {
     "@/(.*)": ["<rootDir>/src/$1"],
-    "@handlers/(.*)": "<rootDir>/src/Handlers/$1",
+    "@controllers/(.*)": "<rootDir>/src/Controllers/$1",
     "@models/(.*)": "<rootDir>/src/Models/$1",
     "@views/(.*)": "<rootDir>/src/Views/$1",
     "@brackets/(.*)": "<rootDir>/src/Brackets/$1",

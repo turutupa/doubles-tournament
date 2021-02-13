@@ -11,7 +11,7 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["./*"],
-      "@handlers/*": ["Handlers/*"],
+      "@controllers/*": ["Controllers/*"],
       "@models/*": ["Models/*"],
       "@views/*": ["Views/*"],
       "@brackets/*": ["Brackets/*"],

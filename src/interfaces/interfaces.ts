@@ -1,8 +1,10 @@
 import Player from '@models/Player';
 import Team from '@models/Team';
 import Match from '@models/Match';
-import PlayersHandler from '@handlers/PlayersHandler';
-import TeamsHandler from '@handlers/TeamsHandler';
+import PlayersHandler from '@controllers/PlayersController';
+import TeamsHandler from '@controllers/TeamsController';
+
+export interface Tournament {}
 
 export interface HasID {
   id: string;

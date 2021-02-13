@@ -22,10 +22,7 @@
     "prepublishOnly": "npm test && npm version patch",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "dev:build": "tsc -w",
-    "dev:run": "nodemon lib/index.js",
-    "dev": "concurrently npm:dev:*",
-    "start": "nodemon --exec 'ts-node -r tsconfig-paths/register' ./src/index.ts"
+    "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register' ./src/index.ts"
   },
   "files": [
     "lib/**/*"
