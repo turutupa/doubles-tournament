@@ -4,7 +4,7 @@ import SequenceGenerator from '@roundrobin/SequenceGenerator';
 import TABLES, { Table } from './tables';
 import Match from '@models/Match';
 import Team from '@models/Team';
-import { uuid } from '@helpers/uuid';
+import { uuid } from '@utils/uuid';
 
 export default class SwitchRoundRobin {
   static calculate(players: Players): ScheduleInfo {

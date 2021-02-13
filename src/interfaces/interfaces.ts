@@ -4,7 +4,19 @@ import Match from '@models/Match';
 import PlayersHandler from '@controllers/PlayersController';
 import TeamsHandler from '@controllers/TeamsController';
 
-export interface Tournament {}
+export interface ITournament {
+  id: string;
+  name: string;
+  date: Date;
+  price: number;
+  maxNumberOfPlayers: number;
+  location: string;
+  log: void;
+  schedule(): void;
+  newSchedule(): void;
+  resetSchedule(): void;
+  leaderboard(): void;
+}
 
 export interface HasID {
   id: string;

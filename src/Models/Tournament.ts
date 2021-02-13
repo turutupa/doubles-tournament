@@ -1,6 +1,6 @@
 import Leaderboard from '@controllers/Leaderboard';
 import { TournamentParams, ParticipantHandler, ParticipantParams, isAscending } from '@interfaces/interfaces';
-import { inAWeekFromDateNow } from '@/constants';
+import { inAWeekFromDateNow } from '@utils/constants';
 
 export default abstract class Tournament<T extends ParticipantHandler> {
   public id: string;
@@ -24,14 +24,15 @@ export default abstract class Tournament<T extends ParticipantHandler> {
   public abstract newSchedule(): void;
   public abstract resetSchedule(): void;
 
-  get log(): Tournament<T> {
+  get log(): void {
     console.log(`
     name: ${this.name}
     date: ${this.date}
     price: ${this.price}
     size: ${this.maxNumberOfPlayers} players
+    location: ${this.location}
     `);
-    return this;
+    return;
   }
 
   setName(name: string): void {

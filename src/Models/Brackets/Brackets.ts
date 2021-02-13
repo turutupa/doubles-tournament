@@ -1,6 +1,6 @@
 import { TournamentParams } from '@interfaces/interfaces';
-import SingleElimination from './SingleElimination';
-import DoubleElimination from './DoubleElimination';
+import SingleElimination from '@brackets/SingleElimination';
+import DoubleElimination from '@brackets/DoubleElimination';
 
 export default class Brackets {
   public singleElimination(params?: TournamentParams) {

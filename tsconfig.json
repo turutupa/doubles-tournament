@@ -14,9 +14,9 @@
       "@controllers/*": ["Controllers/*"],
       "@models/*": ["Models/*"],
       "@views/*": ["Views/*"],
-      "@brackets/*": ["Brackets/*"],
-      "@roundrobin/*": ["RoundRobin/*"],
-      "@helpers/*": ["helpers/*"],
+      "@brackets/*": ["Models/Brackets/*"],
+      "@roundrobin/*": ["Models/RoundRobin/*"],
+      "@utils/*": ["utils/*"],
       "@interfaces/*": ["interfaces/*"],
       "@tests/*": ["__tests__/*"]
     },
