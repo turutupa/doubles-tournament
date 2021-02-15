@@ -1,26 +1,22 @@
-const path = require('path');
 const gulp = require('gulp');
 const typescript = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
 const alias = require('gulp-ts-alias');
+const merge = require('merge2');
+
 const project = typescript.createProject('tsconfig.json');
-const { src, dest } = gulp;
+const { src } = gulp;
 
 gulp.task('build', build);
 
 function build() {
-  const compiled = src('./src/**/*.ts')
+  const tsResult = src('./src/**/*.ts')
     .pipe(alias({ configuration: project.config }))
     .pipe(sourcemaps.init())
     .pipe(project());
 
-  return compiled.js
-    .pipe(
-      sourcemaps.write({
-        sourceRoot: (file) => {
-          return path.relative(path.join(file.cwd, file.path), file.base);
-        },
-      }),
-    )
-    .pipe(dest('lib/'));
+  return merge([
+    tsResult.dts.pipe(gulp.dest('lib/types')),
+    tsResult.js.pipe(sourcemaps.write('.')).pipe(gulp.dest('lib')),
+  ]);
 }
