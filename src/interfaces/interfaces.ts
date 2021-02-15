@@ -54,12 +54,14 @@ export interface GetParticipants {
   participants(): Players | Teams;
 }
 
+export type RawSchedule = [string, string][][][];
+
 export interface MatchesMap {
   [key: string]: Match;
 }
 
 export interface ScheduleInfo {
-  rawSchedule?: [string, string][][][];
+  rawSchedule?: RawSchedule;
   schedule: string[][];
   matches: MatchesMap;
 }

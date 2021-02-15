@@ -1,10 +1,10 @@
 import Tournament from '@models/Tournament';
 import Match from '@models/Match';
 import { TournamentParams, ScheduleInfo } from '@interfaces/interfaces';
-import PlayersHandler from '@controllers/PlayersController';
+import PlayersController from '@controllers/PlayersController';
 import SwitchScheduler from '@roundrobin/SwitchPartnersScheduler';
-export default class SwitchTournament extends Tournament<PlayersHandler> {
-  protected participants = new PlayersHandler();
+export default class SwitchTournament extends Tournament<PlayersController> {
+  protected participants = new PlayersController();
   private _schedule: ScheduleInfo = { schedule: [], matches: {} };
   private _scheduleBuilder = SwitchScheduler;
 

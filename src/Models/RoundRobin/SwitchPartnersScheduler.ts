@@ -13,9 +13,14 @@ export default class SwitchRoundRobin {
     let rawSchedule: [string, string][][][] = [];
     let schedule: string[][] = []; // Rounds with ID's of the matches
     let matches: MatchesMap = {}; // Map of matches stored by ID
-    const positionsMatrix: number[][] = SequenceGenerator.calculate(listOfPlayers);
+    const positionsMatrix: number[][] = SequenceGenerator.calculate(
+      listOfPlayers,
+    );
 
-    if (!TABLES[players.size]) throw new Error(`Tables for ${players.size} number of players not calculated`);
+    if (!TABLES[players.size])
+      throw new Error(
+        `Tables for ${players.size} number of players not calculated`,
+      );
     const tables = [...TABLES[players.size]];
 
     // Each Round players are assigned to their respective table
@@ -52,7 +57,11 @@ export default class SwitchRoundRobin {
     return listOfPlayers;
   }
 
-  private static updateTable(player: Player, playerPosition: number, tables: Table[]): void {
+  private static updateTable(
+    player: Player,
+    playerPosition: number,
+    tables: Table[],
+  ): void {
     for (let table of tables) {
       for (let team of table) {
         if (team.hasOwnProperty(playerPosition)) {
@@ -62,20 +71,27 @@ export default class SwitchRoundRobin {
     }
   }
 
-  private static translateTablesToMatches(tables: Table[]): [string, string][][] {
+  private static translateTablesToMatches(
+    tables: Table[],
+  ): [string, string][][] {
     return tables.map((match) => {
       return match.map((team) => {
         const keys = Object.keys(team);
         const firstPlayer: string | null = team[keys[0]];
         const secondPlayer: string | null = team[keys[1]];
 
-        if (!firstPlayer || !secondPlayer) throw new Error('Missing player in a team');
+        if (!firstPlayer || !secondPlayer)
+          throw new Error('Missing player in a team');
         return [firstPlayer, secondPlayer];
       });
     });
   }
 
-  private static createMatches(players: Players, round: [string, string][][], matchesMap: MatchesMap) {
+  private static createMatches(
+    players: Players,
+    round: [string, string][][],
+    matchesMap: MatchesMap,
+  ) {
     const roundOfIDs = [];
 
     for (let match of round) {
@@ -88,17 +104,18 @@ export default class SwitchRoundRobin {
       const secondVisitor: Player | undefined = players.get(visitorsArr[1]);
 
       if (!firstLocal || !secondLocal || !firstVisitor || !secondVisitor)
-        throw new Error(`Something went wrong getting players while creating matches`);
+        throw new Error(
+          `Something went wrong getting players while creating matches`,
+        );
 
       const locals: Team = new Team([firstLocal, secondLocal]);
       const visitors: Team = new Team([firstVisitor, secondVisitor]);
 
       // Create new match and assign to matchesMap and add to roundOfIDs
-      const randomID: number = uuid();
-      const newMatch: Match = new Match(String(randomID), locals, visitors);
+      const newMatch: Match = new Match(locals, visitors);
 
-      matchesMap[randomID] = newMatch;
-      roundOfIDs.push(String(randomID));
+      matchesMap[newMatch.id] = newMatch;
+      roundOfIDs.push(String(newMatch.id));
     }
 
     return roundOfIDs;

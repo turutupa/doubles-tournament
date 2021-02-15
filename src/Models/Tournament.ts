@@ -1,6 +1,12 @@
 import Leaderboard from '@controllers/Leaderboard';
-import { TournamentParams, ParticipantHandler, ParticipantParams, isAscending } from '@interfaces/interfaces';
+import {
+  TournamentParams,
+  ParticipantHandler,
+  ParticipantParams,
+  isAscending,
+} from '@interfaces/interfaces';
 import { inAWeekFromDateNow } from '@utils/constants';
+import { uuid } from '@utils/uuid';
 
 export default abstract class Tournament<T extends ParticipantHandler> {
   public id: string;
@@ -11,7 +17,7 @@ export default abstract class Tournament<T extends ParticipantHandler> {
   public location: string;
 
   constructor(private params?: TournamentParams) {
-    this.id = 'this is for database identification right?';
+    this.id = String(uuid());
     this.name = params?.name || 'Please, set a name';
     this.date = params?.date || inAWeekFromDateNow;
     this.price = params?.price || 0;
@@ -24,7 +30,17 @@ export default abstract class Tournament<T extends ParticipantHandler> {
   public abstract newSchedule(): void;
   public abstract resetSchedule(): void;
 
-  get log(): void {
+  public get info() {
+    return {
+      name: this.name,
+      price: this.price,
+      date: this.date,
+      maxNumberOfPlayers: this.maxNumberOfPlayers,
+      location: this.location,
+    };
+  }
+
+  public get log(): void {
     console.log(`
     name: ${this.name}
     date: ${this.date}
@@ -35,11 +51,14 @@ export default abstract class Tournament<T extends ParticipantHandler> {
     return;
   }
 
-  setName(name: string): void {
+  public setName(name: string): void {
     this.name = name;
   }
 
-  leaderboard(sortable?: keyof ParticipantParams, ascending?: isAscending) {
+  public leaderboard(
+    sortable?: keyof ParticipantParams,
+    ascending?: isAscending,
+  ) {
     const participants = this.participants.participants();
 
     if (!sortable) {
