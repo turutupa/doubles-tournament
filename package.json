@@ -1,7 +1,7 @@
 {
   "author": "Alberto Delgado <turutupa.com>",
   "name": "doubles-tournament",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create doubles tournaments for games like tenis, table tennis, padel, bridge, etc",
   "homepage": "https://github.com/turutupa/doubles-tournament",
   "repository": {
