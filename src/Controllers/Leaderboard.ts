@@ -1,7 +1,16 @@
-import { ParticipantParams, IsParticipant, isAscending, ASCENDING } from '@interfaces/interfaces';
+import {
+  ParticipantParams,
+  IsParticipant,
+  isAscending,
+  ASCENDING,
+} from '@interfaces/interfaces';
 
 export default class Leaderboard {
-  static sortBy(participants: IsParticipant, sortable: keyof ParticipantParams, isAscending?: isAscending) {
+  static sortBy(
+    participants: IsParticipant,
+    sortable: keyof ParticipantParams,
+    isAscending?: isAscending,
+  ) {
     const sorted = [...participants.values()];
 
     return sorted.sort((a: ParticipantParams, b: ParticipantParams) => {
