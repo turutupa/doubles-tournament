@@ -15,10 +15,10 @@
   "scripts": {
     "commit": "git-cz",
     "test": "jest --config jestconfig.json",
-    "build": "npm run format && npm run test && gulp build",
+    "build": "npm run format && gulp build",
     "format": "prettier --write src/**/*.ts",
     "lint": "tslint --project 'tsconfig.json'",
-    "prepare": "npm test && npm version patch",
+    "prepare": "npm version patch",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "dev": "jest --watchAll --config jestconfig.json",
