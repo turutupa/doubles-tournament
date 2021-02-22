@@ -17,15 +17,6 @@ export default class Player extends Participant implements ParticipantParams {
     return this.id;
   }
 
-  public get stats(): MatchResults {
-    return {
-      wins: this.wins,
-      losses: this.losses,
-      games: this.games,
-      sets: this.sets,
-    };
-  }
-
   public setName(name: string): Player {
     this.id = name;
     return this;

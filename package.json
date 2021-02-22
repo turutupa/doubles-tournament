@@ -23,7 +23,6 @@
     "postversion": "git push && git push --tags",
     "dev": "jest --watchAll --config jestconfig.json",
     "start": "nodemon --exec 'ts-node -r tsconfig-paths/register' ./src/index.ts",
-    "predeploy": "npm run build",
     "deploy": "npm publish --access-public",
     "git": "npm run build && git add . && git commit -m",
     "postgit": "git push --all"

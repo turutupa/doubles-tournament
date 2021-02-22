@@ -31,11 +31,20 @@ describe('Team', () => {
   });
 
   it('should have 2 players in locals and 2 players in visitors', () => {
-    expect(match.locals.team.length).toBe(2);
-    expect(match.visitors.team.length).toBe(2);
+    expect(match.home.team.length).toBe(2);
+    expect(match.away.team.length).toBe(2);
   });
 
-  it('should have unique players', () => {});
+  it('should have unique players', () => {
+    const [firstHome, secondHome] = match.home.team;
+    const [firstAway, secondAway] = match.away.team;
 
-  // add more tests...
+    const idSet = new Set([
+      firstHome.id,
+      secondHome.id,
+      firstAway.id,
+      secondAway.id,
+    ]);
+    expect(idSet.size).toBe(4);
+  });
 });

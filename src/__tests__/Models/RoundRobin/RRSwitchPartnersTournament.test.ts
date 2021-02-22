@@ -1,9 +1,14 @@
 import SwitchCalculator from '@roundrobin/SwitchPartnersScheduler';
-import { ScheduleInfo } from '@interfaces/interfaces';
-import { eightPlayers } from '@tests/MockData';
+import { ScheduleInfo, Players } from '@interfaces/interfaces';
+import {
+  getPlayers,
+  buildOpponentsGraph,
+  buildPartneredGraph,
+} from '@tests/MockData';
 
 describe('Switch Partners Round Robin Tournament', () => {
   let tournament: ScheduleInfo;
+  let eightPlayers: Players = getPlayers(8);
 
   beforeEach(() => {
     tournament = SwitchCalculator.calculate(eightPlayers);
@@ -12,7 +17,7 @@ describe('Switch Partners Round Robin Tournament', () => {
     expect(tournament.rawSchedule).toEqual(eightPlayerTournament);
   });
 
-  it('should have each player partners up ONCE with each plaeyr and play TWICE against each other', () => {
+  it('(8 players ) should have each player partners up ONCE with each player and play TWICE against each other', () => {
     const opponentsGraph: PlayersGraph = {};
     const partneredGraph: PlayersGraph = {};
     for (let [name, _] of eightPlayers) {
@@ -53,8 +58,8 @@ describe('Switch Partners Round Robin Tournament', () => {
       }
     }
 
-    expect(opponentsGraph).toEqual(eightPlayerOpponentsGraph);
-    expect(partneredGraph).toEqual(eightPlayerPartneredGraph);
+    expect(opponentsGraph).toEqual(buildOpponentsGraph(8));
+    expect(partneredGraph).toEqual(buildPartneredGraph(8));
   });
 });
 
@@ -71,28 +76,6 @@ function updatePlayerGraph(root: OpponentCounter, opponents: string[]): void {
     root[opponent] = root[opponent] ? root[opponent] + 1 : 1;
   }
 }
-
-const eightPlayerOpponentsGraph = {
-  one: { two: 2, three: 2, four: 2, five: 2, six: 2, seven: 2, eight: 2 },
-  two: { one: 2, three: 2, four: 2, five: 2, six: 2, seven: 2, eight: 2 },
-  three: { one: 2, two: 2, four: 2, five: 2, six: 2, seven: 2, eight: 2 },
-  four: { one: 2, two: 2, three: 2, five: 2, six: 2, seven: 2, eight: 2 },
-  five: { one: 2, two: 2, three: 2, four: 2, six: 2, seven: 2, eight: 2 },
-  six: { one: 2, two: 2, three: 2, four: 2, five: 2, seven: 2, eight: 2 },
-  seven: { one: 2, two: 2, three: 2, four: 2, five: 2, six: 2, eight: 2 },
-  eight: { one: 2, two: 2, three: 2, four: 2, five: 2, six: 2, seven: 2 },
-};
-
-const eightPlayerPartneredGraph = {
-  one: { two: 1, three: 1, four: 1, five: 1, six: 1, seven: 1, eight: 1 },
-  two: { one: 1, three: 1, four: 1, five: 1, six: 1, seven: 1, eight: 1 },
-  three: { one: 1, two: 1, four: 1, five: 1, six: 1, seven: 1, eight: 1 },
-  four: { one: 1, two: 1, three: 1, five: 1, six: 1, seven: 1, eight: 1 },
-  five: { one: 1, two: 1, three: 1, four: 1, six: 1, seven: 1, eight: 1 },
-  six: { one: 1, two: 1, three: 1, four: 1, five: 1, seven: 1, eight: 1 },
-  seven: { one: 1, two: 1, three: 1, four: 1, five: 1, six: 1, eight: 1 },
-  eight: { one: 1, two: 1, three: 1, four: 1, five: 1, six: 1, seven: 1 },
-};
 
 const eightPlayerTournament = [
   [
