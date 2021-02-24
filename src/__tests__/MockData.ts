@@ -1,5 +1,6 @@
+import Team from '@models/Team';
 import Player from '@models/Player';
-import { Players } from '@interfaces/interfaces';
+import { Players, Teams } from '@interfaces/interfaces';
 
 it('Just added this to prevent error from showing up in report', () => {});
 
@@ -11,6 +12,22 @@ export function getPlayers(n: number) {
   }
 
   return players;
+}
+
+// Creates n Teams
+export function getTeams(n: number) {
+  const teams: Teams = new Map();
+
+  for (let i = 0; i < 2 * n; i = i + 2) {
+    const playerOne = new Player(playerNames[i]);
+    const playerTwo = new Player(playerNames[i + 1]);
+
+    const team = new Team([playerOne, playerTwo]);
+
+    teams.set(team.id, team);
+  }
+
+  return teams;
 }
 
 interface PlayersOpponents {
@@ -41,13 +58,19 @@ function buildGraph(n: number, m: number) {
 }
 
 // this graph is used to check each player plays AGAINST each other player twice
-export function buildOpponentsGraph(n: number) {
-  return buildGraph(n, 2);
+export function buildOpponentsGraph(
+  numberOfPlayers: number,
+  numberOfTimesPlayed: number,
+) {
+  return buildGraph(numberOfPlayers, numberOfTimesPlayed);
 }
 
 // this graph is used to check each player plays WITH each other player once
-export function buildPartneredGraph(n: number) {
-  return buildGraph(n, 1);
+export function buildPartneredGraph(
+  numberOfPlayers: number,
+  numberOfTimesPartnered: number,
+) {
+  return buildGraph(numberOfPlayers, numberOfTimesPartnered);
 }
 
 const playerNames = [

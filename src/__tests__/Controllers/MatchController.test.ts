@@ -5,6 +5,12 @@ import Match from '@models/Match';
 import { MatchesMap } from '@interfaces/interfaces';
 import { uuid } from '@utils/uuid';
 
+// Test are going to verify that
+//  - Retrieves match from matchesMap
+//  - Updates match results
+//  - Updates players stats
+//  - Updates teams stats
+//  -- All of the previous but with a second match
 describe('Match Controller', () => {
   let one: Player;
   let two: Player;
@@ -80,7 +86,7 @@ describe('Match Controller', () => {
     matchesMap[secondMatchID] = secondMatch;
   });
 
-  it('should retrieve targeted MatchID and update result', () => {
+  it('should retrieve targeted MatchID (from matchesMap) and update result', () => {
     MatchController.update(matchesMap, matchID, firstResult);
     MatchController.update(matchesMap, secondMatchID, secondResult);
 
@@ -97,14 +103,14 @@ describe('Match Controller', () => {
     expect(four.stats).toEqual(awayResult);
   });
 
-  it('should update match results to teams correctly', () => {
+  it('should update match results to teams stats correctly', () => {
     MatchController.update(matchesMap, matchID, firstResult);
 
     expect(home.stats).toEqual(homeResult);
     expect(away.stats).toEqual(awayResult);
   });
 
-  it('should update a second match to players correctly', () => {
+  it('should update a second match to players stats correctly', () => {
     MatchController.update(matchesMap, matchID, firstResult);
     MatchController.update(matchesMap, secondMatchID, secondResult);
 
@@ -114,7 +120,7 @@ describe('Match Controller', () => {
     expect(four.stats).toEqual(awayResultSecondMatch);
   });
 
-  it('should update a second match to teams correctly', () => {
+  it('should update a second match to teams stats correctly', () => {
     MatchController.update(matchesMap, matchID, firstResult);
     MatchController.update(matchesMap, secondMatchID, secondResult);
 

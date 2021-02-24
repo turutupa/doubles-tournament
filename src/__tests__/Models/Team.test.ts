@@ -1,6 +1,6 @@
 import Team from '@models/Team';
 import Player from '@models/Player';
-import { uuid, uuidLength, randomMultiplier } from '@utils/uuid';
+import { uuid, randomMultiplier } from '@utils/uuid';
 
 describe('Team', () => {
   let playerOne: Player;
@@ -32,11 +32,11 @@ describe('Team', () => {
 
   it('should allow to add players', () => {
     const team = new Team([playerOne, playerTwo]);
-    expect(team.team).toEqual([playerOne, playerTwo]);
+    expect(team.players).toEqual([playerOne, playerTwo]);
   });
 
   it('should have unique players', () => {
-    const [playerOne, playerTwo] = team.team;
+    const [playerOne, playerTwo] = team.players;
     expect(playerOne.name).not.toBe(playerTwo.name);
   });
 
@@ -45,11 +45,11 @@ describe('Team', () => {
       `No player named none existant exists in team`,
     );
 
-    expect(team.setPlayerName('playerTwo', 'twoPlayer').team[1].name).toBe(
+    expect(team.setPlayerName('playerTwo', 'twoPlayer').players[1].name).toBe(
       'twoPlayer',
     );
 
-    expect(team.setPlayerName('playerOne', 'onePlayer').team[0].name).toBe(
+    expect(team.setPlayerName('playerOne', 'onePlayer').players[0].name).toBe(
       'onePlayer',
     );
   });

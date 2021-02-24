@@ -2,11 +2,11 @@ import Tournament from '@models/Tournament';
 import Match from '@models/Match';
 import { TournamentParams, ScheduleInfo } from '@interfaces/interfaces';
 import PlayersController from '@controllers/PlayersController';
-import SwitchScheduler from '@roundrobin/SwitchPartnersScheduler';
+import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
 export default class SwitchTournament extends Tournament<PlayersController> {
   protected participants = new PlayersController();
   private _schedule: ScheduleInfo = { schedule: [], matches: {} };
-  private _scheduleBuilder = SwitchScheduler;
+  private _scheduleBuilder = RoundRobinScheduler;
 
   constructor(params?: TournamentParams) {
     super(params);
@@ -28,7 +28,9 @@ export default class SwitchTournament extends Tournament<PlayersController> {
         with same players use resetTournament
       `);
     }
-    this._schedule = this._scheduleBuilder.calculate(this.participants.players);
+    this._schedule = this._scheduleBuilder.switchPlayers(
+      this.participants.players,
+    );
 
     return this.convertScheduleInfoToSchedule(this._schedule);
   }

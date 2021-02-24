@@ -17,8 +17,8 @@ export default class MatchController {
     away: Team,
     results: number[][],
   ) {
-    const [firstHome, secondHome] = home.team;
-    const [firstAway, secondAway] = away.team;
+    const [firstHome, secondHome]: [Player, Player] = home.players;
+    const [firstAway, secondAway]: [Player, Player] = away.players;
 
     const homeScore = results[0];
     const awayScore = results[1];

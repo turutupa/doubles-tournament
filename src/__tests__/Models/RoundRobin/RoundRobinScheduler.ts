@@ -1,4 +1,4 @@
-import SwitchCalculator from '@roundrobin/SwitchPartnersScheduler';
+import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
 import { ScheduleInfo, Players } from '@interfaces/interfaces';
 import {
   getPlayers,
@@ -11,7 +11,7 @@ describe('Switch Partners Round Robin Tournament', () => {
   let eightPlayers: Players = getPlayers(8);
 
   beforeEach(() => {
-    tournament = SwitchCalculator.calculate(eightPlayers);
+    tournament = RoundRobinScheduler.switchPlayers(eightPlayers);
   });
   it('for eight players should calculate raw Schedule correctly', () => {
     expect(tournament.rawSchedule).toEqual(eightPlayerTournament);
@@ -58,8 +58,8 @@ describe('Switch Partners Round Robin Tournament', () => {
       }
     }
 
-    expect(opponentsGraph).toEqual(buildOpponentsGraph(8));
-    expect(partneredGraph).toEqual(buildPartneredGraph(8));
+    expect(opponentsGraph).toEqual(buildOpponentsGraph(8, 2));
+    expect(partneredGraph).toEqual(buildPartneredGraph(8, 1));
   });
 });
 

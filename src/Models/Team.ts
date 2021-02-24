@@ -4,12 +4,9 @@ import { ParticipantParams } from '@interfaces/interfaces';
 import { uuid } from '@utils/uuid';
 export default class Team extends Participant implements ParticipantParams {
   public id: string;
-  public team: [Player, Player];
 
-  constructor(private players: [Player, Player], id?: string) {
+  constructor(public players: [Player, Player], id?: string) {
     super();
-    const [firstPlayer, secondPlayer] = players;
-    this.team = [firstPlayer, secondPlayer];
     this.id = id ? String(id) : String(uuid());
   }
 
@@ -23,7 +20,7 @@ export default class Team extends Participant implements ParticipantParams {
   }
 
   public setPlayerName(updateablePlayer: string, newName: string): this {
-    const [firstPlayer, secondPlayer] = this.team;
+    const [firstPlayer, secondPlayer] = this.players;
     if (firstPlayer.name === updateablePlayer) {
       firstPlayer.setName(newName);
       return this;

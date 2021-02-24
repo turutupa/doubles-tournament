@@ -1,14 +1,49 @@
 import Player from '@models/Player';
-import { Players, ScheduleInfo, MatchesMap } from '@interfaces/interfaces';
-import SequenceGenerator from '@roundrobin/SequenceGenerator';
-import TABLES, { Table } from './tables';
+import {
+  Teams,
+  Players,
+  ScheduleInfo,
+  MatchesMap,
+} from '@interfaces/interfaces';
+import SequenceGenerator from '@roundrobin/helpers/SequenceGenerator';
+import {
+  IsTable,
+  tablesForFixedRR,
+  tablesForSwitchRR,
+} from '@roundrobin/helpers/tables';
 import Match from '@models/Match';
 import Team from '@models/Team';
-import { uuid } from '@utils/uuid';
 
-export default class SwitchRoundRobin {
-  static calculate(players: Players): ScheduleInfo {
-    const listOfPlayers = this.calculateListOfPlayers(players);
+// this is disgusting right? I hate myself
+type GenericMap = Map<string, any>;
+
+export default class SwitchRoundRobinScheduler {
+  public static fixedTeams(teams: Teams) {
+    const listOfTeams: Team[] = this.calculateListOfParticipants<Teams>(teams);
+
+    let rawSchedule: [string, string][][] = [];
+    let schedule: string[][] = [];
+    let matches: MatchesMap = {};
+
+    const positionsMatrix: number[][] = SequenceGenerator.calculate(
+      listOfTeams,
+    );
+
+    const tables = tablesForFixedRR(listOfTeams.length);
+
+    for (let i = 0; i < listOfTeams.length; i++) {
+      const roundSequence = positionsMatrix[i];
+
+      for (let j = 0; j < listOfTeams.length / 2; j++) {
+        // const home = positionsMatrix[]
+      }
+    }
+  }
+
+  public static switchPlayers(players: Players): ScheduleInfo {
+    const listOfPlayers: Player[] = this.calculateListOfParticipants<Players>(
+      players,
+    );
 
     let rawSchedule: [string, string][][][] = [];
     let schedule: string[][] = []; // Rounds with ID's of the matches
@@ -17,11 +52,13 @@ export default class SwitchRoundRobin {
       listOfPlayers,
     );
 
-    if (!TABLES[players.size])
+    if (!tablesForSwitchRR[players.size]) {
       throw new Error(
         `Tables for ${players.size} number of players not calculated`,
       );
-    const tables = [...TABLES[players.size]];
+    }
+
+    const tables = [...tablesForSwitchRR[players.size]];
 
     // Each Round players are assigned to their respective table
     // When tables are calculated the round is pushed to schedule
@@ -31,7 +68,7 @@ export default class SwitchRoundRobin {
       for (let j = 0; j < listOfPlayers.length; j++) {
         const player = listOfPlayers[j];
         const playerPosition = roundSequence[j];
-        this.updateTable(player, playerPosition, tables);
+        this.sitParticipantInTable(player, playerPosition, tables);
       }
 
       const round = this.translateTablesToMatches(tables);
@@ -47,20 +84,22 @@ export default class SwitchRoundRobin {
     };
   }
 
-  private static calculateListOfPlayers(players: Players) {
+  private static calculateListOfParticipants<T extends GenericMap>(
+    participants: T,
+  ) {
     const listOfPlayers = [];
 
-    for (let [_, player] of players) {
-      listOfPlayers.push(player);
+    for (let [_, participant] of participants) {
+      listOfPlayers.push(participant);
     }
 
     return listOfPlayers;
   }
 
-  private static updateTable(
+  private static sitParticipantInTable(
     player: Player,
     playerPosition: number,
-    tables: Table[],
+    tables: IsTable[],
   ): void {
     for (let table of tables) {
       for (let team of table) {
@@ -72,7 +111,7 @@ export default class SwitchRoundRobin {
   }
 
   private static translateTablesToMatches(
-    tables: Table[],
+    tables: IsTable[],
   ): [string, string][][] {
     return tables.map((match) => {
       return match.map((team) => {
@@ -98,10 +137,10 @@ export default class SwitchRoundRobin {
       const localsArr: [string, string] = match[0];
       const visitorsArr: [string, string] = match[1];
 
-      const firstLocal: Player | undefined = players.get(localsArr[0]);
-      const secondLocal: Player | undefined = players.get(localsArr[1]);
-      const firstVisitor: Player | undefined = players.get(visitorsArr[0]);
-      const secondVisitor: Player | undefined = players.get(visitorsArr[1]);
+      const firstLocal: Player = players.get(localsArr[0])!;
+      const secondLocal: Player = players.get(localsArr[1])!;
+      const firstVisitor: Player = players.get(visitorsArr[0])!;
+      const secondVisitor: Player = players.get(visitorsArr[1])!;
 
       if (!firstLocal || !secondLocal || !firstVisitor || !secondVisitor)
         throw new Error(

@@ -1,15 +1,13 @@
-import Player from '@models/Player';
-
 export default class SequenceGenerator {
-  static calculate(players: Player[]): number[][] {
-    if (players.length % 4 === 0) return this.players4N(players);
+  static calculate<T>(participants: T[]): number[][] {
+    if (participants.length % 4 === 0) return this.players4N(participants);
 
-    return this.players4Nplus1(players);
+    return this.players4Nplus1(participants);
   }
 
-  static players4N(players: Player[]): number[][] {
+  static players4N<T>(participants: T[]): number[][] {
     let matrix: number[][] = [];
-    const numberOfPlayers = players.length;
+    const numberOfPlayers = participants.length;
 
     // There are numberOfPlayers - 1 number of rounds
     for (let i = 0; i < numberOfPlayers - 1; i++) {
@@ -33,7 +31,7 @@ export default class SequenceGenerator {
   }
 
   // Here I have to add particular cases for 5,9,13, etc players
-  static players4Nplus1(players: Player[]): number[][] {
+  static players4Nplus1<T>(participants: T[]): number[][] {
     return [];
   }
 }
