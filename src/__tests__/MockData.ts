@@ -97,4 +97,10 @@ const playerNames = [
   'twentyTwo',
   'twentyThree',
   'twentyFour',
+  'twentyFive',
+  'twentySix',
+  'twentySeven',
+  'twenyEight',
+  'twentyNine',
+  'thirty',
 ];

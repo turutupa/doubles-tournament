@@ -17,8 +17,8 @@ describe('Switch Partners Round Robin Tournament', () => {
     expect(tournament.rawSchedule).toEqual(eightPlayerTournament);
   });
 
-  it('for 24 players should give an error as there nos no way to calculate it', () => {
-    const manyPlayers = getPlayers(24);
+  it('for 30 players should give an error as there nos no way to calculate it', () => {
+    const manyPlayers = getPlayers(30);
     expect(() => RoundRobinScheduler.switchPartners(manyPlayers)).toThrow();
   });
 
