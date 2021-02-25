@@ -4,11 +4,11 @@ import RRFixedTeams from '@roundrobin/FixedTeamsTournament';
 import { ITournament } from '@interfaces/interfaces';
 
 export default class RoundRobin {
-  public switchPartners(params?: TournamentParams): ITournament {
+  public switchPartners(params?: TournamentParams) {
     return new RRSwitchPartners(params);
   }
 
-  public fixedTeams(params?: TournamentParams): ITournament {
+  public fixedTeams(params?: TournamentParams) {
     return new RRFixedTeams(params);
   }
 }

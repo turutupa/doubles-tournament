@@ -1,5 +1,5 @@
 import Match from '@models/Match';
-import { MatchesMap, Players, IsParticipant } from '@interfaces/interfaces';
+import { MatchesMap } from '@interfaces/interfaces';
 import Player from '@models/Player';
 import Team from '@models/Team';
 
@@ -12,7 +12,7 @@ export default class MatchController {
     this.updatePlayersAndTeams(match.home, match.away, results);
   }
 
-  private static updatePlayersAndTeams(
+  public static updatePlayersAndTeams(
     home: Team,
     away: Team,
     results: number[][],

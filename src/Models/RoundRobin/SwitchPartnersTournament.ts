@@ -1,9 +1,16 @@
 import Tournament from '@models/Tournament';
 import Match from '@models/Match';
-import { TournamentParams, ScheduleInfo } from '@interfaces/interfaces';
+import {
+  ITournament,
+  TournamentParams,
+  ScheduleInfo,
+} from '@interfaces/interfaces';
 import PlayersController from '@controllers/PlayersController';
 import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
-export default class SwitchTournament extends Tournament<PlayersController> {
+import MatchController from '@controllers/MatchController';
+export default class SwitchTournament
+  extends Tournament<PlayersController>
+  implements ITournament {
   protected participants = new PlayersController();
   private _schedule: ScheduleInfo = { schedule: [], matches: {} };
   private _scheduleBuilder = RoundRobinScheduler;
@@ -12,6 +19,7 @@ export default class SwitchTournament extends Tournament<PlayersController> {
     super(params);
   }
 
+  public player = this.participants.player;
   public players = this.participants.players;
   public addPlayer = this.participants.addPlayer;
   public addPlayers = this.participants.addPlayers;
@@ -28,14 +36,28 @@ export default class SwitchTournament extends Tournament<PlayersController> {
         with same players use resetTournament
       `);
     }
-    this._schedule = this._scheduleBuilder.switchPlayers(
+
+    return this.createSchedule();
+  }
+
+  private createSchedule(): Match[][] {
+    this._schedule = this._scheduleBuilder.switchPartners(
       this.participants.players,
     );
 
     return this.convertScheduleInfoToSchedule(this._schedule);
   }
 
-  public resetSchedule() {}
+  public resetSchedule() {
+    return this.createSchedule();
+  }
+
+  // Perhaps this doesn't belong here?
+  // Match Model has its own method to add
+  // results to scoreboard
+  public addResults(matchId: string, results: number[][]) {
+    return MatchController.update(this._schedule.matches, matchId, results);
+  }
 
   private convertScheduleInfoToSchedule(scheduleInfo: ScheduleInfo): Match[][] {
     return scheduleInfo.schedule.map((round: string[]) => {

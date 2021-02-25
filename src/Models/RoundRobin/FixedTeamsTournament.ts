@@ -1,8 +1,10 @@
 import Tournament from '@models/Tournament';
-import { TournamentParams } from '@interfaces/interfaces';
+import { ITournament, TournamentParams } from '@interfaces/interfaces';
 import TeamsHandler from '@controllers/TeamsController';
 
-export default class FixedTeamsTournament extends Tournament<TeamsHandler> {
+export default class FixedTeamsTournament
+  extends Tournament<TeamsHandler>
+  implements ITournament {
   protected participants = new TeamsHandler();
 
   constructor(params?: TournamentParams) {

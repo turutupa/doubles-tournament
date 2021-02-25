@@ -47,4 +47,44 @@ describe('Team', () => {
     ]);
     expect(idSet.size).toBe(4);
   });
+
+  it('should add new scoreboard to Match and update Players and Teams', () => {
+    const scoreboard = [
+      [6, 5, 1],
+      [5, 6, 6],
+    ];
+
+    match.addResults(scoreboard);
+    // home results verification
+    expect(match.home.wins).toBe(0);
+    expect(match.home.losses).toBe(1);
+    expect(match.home.sets).toBe(1);
+    expect(match.home.games).toBe(12);
+
+    expect(playerOne.wins).toBe(0);
+    expect(playerOne.losses).toBe(1);
+    expect(playerOne.sets).toBe(1);
+    expect(playerOne.games).toBe(12);
+
+    expect(playerTwo.wins).toBe(0);
+    expect(playerTwo.losses).toBe(1);
+    expect(playerTwo.sets).toBe(1);
+    expect(playerTwo.games).toBe(12);
+
+    // away results verification
+    expect(match.away.wins).toBe(1);
+    expect(match.away.losses).toBe(0);
+    expect(match.away.sets).toBe(2);
+    expect(match.away.games).toBe(17);
+
+    expect(playerThree.wins).toBe(1);
+    expect(playerThree.losses).toBe(0);
+    expect(playerThree.sets).toBe(2);
+    expect(playerThree.games).toBe(17);
+
+    expect(playerFour.wins).toBe(1);
+    expect(playerFour.losses).toBe(0);
+    expect(playerFour.sets).toBe(2);
+    expect(playerFour.games).toBe(17);
+  });
 });

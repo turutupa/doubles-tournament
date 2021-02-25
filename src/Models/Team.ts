@@ -10,11 +10,13 @@ export default class Team extends Participant implements ParticipantParams {
     this.id = id ? String(id) : String(uuid());
   }
 
+  setTeamName = this.setName;
+
   public get name(): string {
     return this.id;
   }
 
-  public setTeamName(name: string): Team {
+  public setName(name: string): Team {
     this.id = name;
     return this;
   }

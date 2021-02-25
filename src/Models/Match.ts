@@ -1,5 +1,6 @@
 import Team from '@models/Team';
 import { uuid } from '@utils/uuid';
+import MatchController from '@controllers/MatchController';
 
 export default class Match {
   public id: string;
@@ -19,5 +20,10 @@ export default class Match {
     this.away = away;
     this.court = court || undefined;
     this.time = time || undefined;
+  }
+
+  public addResults(scoreboard: number[][]): void {
+    this.scoreboard = scoreboard;
+    MatchController.updatePlayersAndTeams(this.home, this.away, scoreboard);
   }
 }

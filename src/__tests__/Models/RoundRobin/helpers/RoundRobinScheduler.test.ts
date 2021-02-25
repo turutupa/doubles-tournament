@@ -11,13 +11,18 @@ describe('Switch Partners Round Robin Tournament', () => {
   let eightPlayers: Players = getPlayers(8);
 
   beforeEach(() => {
-    tournament = RoundRobinScheduler.switchPlayers(eightPlayers);
+    tournament = RoundRobinScheduler.switchPartners(eightPlayers);
   });
   it('for eight players should calculate raw Schedule correctly', () => {
     expect(tournament.rawSchedule).toEqual(eightPlayerTournament);
   });
 
-  it('(8 players ) should have each player partners up ONCE with each player and play TWICE against each other', () => {
+  it('for 24 players should give an error as there nos no way to calculate it', () => {
+    const manyPlayers = getPlayers(24);
+    expect(() => RoundRobinScheduler.switchPartners(manyPlayers)).toThrow();
+  });
+
+  it('(8 players) should have each player partners up ONCE with each player and play TWICE against each other', () => {
     const opponentsGraph: PlayersGraph = {};
     const partneredGraph: PlayersGraph = {};
     for (let [name, _] of eightPlayers) {

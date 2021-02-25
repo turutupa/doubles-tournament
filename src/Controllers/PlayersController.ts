@@ -1,12 +1,18 @@
 import { Players, GetParticipants } from '@interfaces/interfaces';
 import Player from '@models/Player';
 
-export default class PlayersHandler implements GetParticipants {
+export default class PlayersController implements GetParticipants {
   private _players: Players = new Map<string, Player>();
 
   public participants(): Players {
     return this._players;
   }
+
+  public player = (name: string): Player => {
+    const existingPlayer = this._players.get(name);
+    if (!existingPlayer) throw new Error(`Oops! Player ${name} doesn't exist!`);
+    return existingPlayer;
+  };
 
   public get players(): Players {
     return this._players;

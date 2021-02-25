@@ -4,6 +4,7 @@ import {
   ParticipantHandler,
   ParticipantParams,
   isAscending,
+  DESCENDING,
 } from '@interfaces/interfaces';
 import { inAWeekFromDateNow } from '@utils/constants';
 import { uuid } from '@utils/uuid';
@@ -63,7 +64,9 @@ export default abstract class Tournament<T extends ParticipantHandler> {
 
     if (!sortable) {
       // provide default sortable key
-      return Leaderboard.sortBy.call(this, participants, 'wins', 'descending');
+      return Leaderboard.sortBy.call(this, participants, 'wins', DESCENDING);
+    } else if (!ascending) {
+      return Leaderboard.sortBy.call(this, participants, sortable, DESCENDING);
     }
 
     return Leaderboard.sortBy.call(this, participants, sortable, ascending);

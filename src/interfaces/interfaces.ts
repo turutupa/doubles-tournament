@@ -68,7 +68,8 @@ export interface ScheduleInfo {
 
 export type Players = Map<string, Player>;
 export type Teams = Map<string, Team>;
-export type IsParticipant = Players | Teams;
+export type Participant = Player | Team;
+export type ParticipantMap = Map<string, Participant>;
 
 export type isAscending = 'ascending' | 'descending';
 export const ASCENDING = 'ascending';

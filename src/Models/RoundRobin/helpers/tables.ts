@@ -9,7 +9,7 @@ export const tablesForFixedRR = function (
   for (let i = 0; i < Math.floor(numberOfTeams / 2); i++) {
     let table: Team = {};
     table[i] = null;
-    table[i - 1] = null;
+    table[numberOfTeams - i - 1] = null;
     tables.push([table]);
   }
 
@@ -22,8 +22,8 @@ interface Team {
 
 export type TableOfPlayers = [Team, Team];
 
-interface Tables {
-  [key: string]: TableOfPlayers[];
+export interface Tables {
+  [key: string]: TableOfPlayers[] | TableOfTeams[];
 }
 
 export const tablesForSwitchRR: Tables = {
