@@ -56,6 +56,22 @@ export default abstract class Tournament<T extends ParticipantHandler> {
     this.name = name;
   }
 
+  public setPrice(price: number): void {
+    this.price = price;
+  }
+
+  public setDate(date: Date): void {
+    this.date = date;
+  }
+
+  public setLocation(location: string): void {
+    this.location = location;
+  }
+
+  public setMaxNumberOfPlayers(maxNumberOfPlayers: number): void {
+    this.maxNumberOfPlayers = maxNumberOfPlayers;
+  }
+
   public leaderboard(
     sortable?: keyof ParticipantParams,
     ascending?: isAscending,

@@ -4,7 +4,7 @@ import {
   getPlayers,
   buildOpponentsGraph,
   buildPartneredGraph,
-} from '@tests/MockData';
+} from '@tests/MockData/ParticipantsHelper';
 
 describe('Switch Partners Round Robin Tournament', () => {
   let tournament: ScheduleInfo;

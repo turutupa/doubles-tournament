@@ -18,7 +18,7 @@ export default class PlayersController implements GetParticipants {
     return this._players;
   }
 
-  public addPlayers = (players: string[]): Players => {
+  public addPlayers = (players: string[]): Player[] => {
     // Before adding players first check if
     // all players are unique and also it
     // doesn't already exist in this._players
@@ -32,20 +32,23 @@ export default class PlayersController implements GetParticipants {
       }
     }
 
+    const newPlayers: Player[] = [];
     players.forEach((player) => {
-      this._players.set(player, new Player(player));
+      const newPlayer = new Player(player);
+      this._players.set(player, newPlayer);
+      newPlayers.push(newPlayer);
     });
 
-    return this._players;
+    return newPlayers;
   };
 
-  addPlayer = (name: string): Players => {
+  addPlayer = (name: string): Player => {
     if (this._players.get(name)) {
       throw `Player ${name} already exists`;
-    } else {
-      this._players.set(name, new Player(name));
     }
 
-    return this._players;
+    const player = new Player(name);
+    this._players.set(name, player);
+    return player;
   };
 }

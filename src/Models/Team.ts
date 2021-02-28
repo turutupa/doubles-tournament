@@ -7,7 +7,7 @@ export default class Team extends Participant implements ParticipantParams {
 
   constructor(public players: [Player, Player], id?: string) {
     super();
-    this.id = id ? String(id) : String(uuid());
+    this.id = id ? String(id) : uuid();
   }
 
   setTeamName = this.setName;

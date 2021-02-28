@@ -11,13 +11,17 @@ export const randomMultiplier = 99999999999;
 export const uuid = (function () {
   const uuidCache = new Map();
 
-  return (): number => {
+  return (): string => {
     const randomNumber = Math.floor(Math.random() * randomMultiplier);
     if (String(randomNumber).length < 11 || uuidCache.get(randomNumber)) {
       return uuid();
     }
 
+    if (uuidCache.get(randomNumber)) {
+      return uuid();
+    }
+
     uuidCache.set(randomNumber, randomNumber);
-    return randomNumber;
+    return String(randomNumber);
   };
 })();

@@ -5,7 +5,7 @@ import { Players, Teams } from '@interfaces/interfaces';
 it('Just added this to prevent error from showing up in report', () => {});
 
 // Creates a Players map for n participants
-export function getPlayers(n: number) {
+export function getPlayers(n: number): Players {
   const players: Players = new Map();
   for (let i = 0; i < n; i++) {
     players.set(playerNames[i], new Player(playerNames[i]));
@@ -15,7 +15,7 @@ export function getPlayers(n: number) {
 }
 
 // Creates n Teams
-export function getTeams(n: number) {
+export function getTeams(n: number): Teams {
   const teams: Teams = new Map();
 
   for (let i = 0; i < 2 * n; i = i + 2) {
@@ -40,7 +40,7 @@ interface PlayersGraph {
 
 // n = number of players
 // m = number of encounters
-function buildGraph(n: number, m: number) {
+function buildGraph(n: number, m: number): PlayersGraph {
   const graph: PlayersGraph = {};
 
   for (let i = 0; i < n; i++) {

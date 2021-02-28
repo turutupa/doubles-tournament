@@ -9,18 +9,15 @@ import {
   DESCENDING,
 } from '@interfaces/interfaces';
 import { WINS, LOSSES, GAMES, SETS, ID } from '@interfaces/constants';
+import { tournamentInfo } from '@tests/MockData/TournamentInitialParams';
 
-describe('', () => {
+describe('Switch Partners Round Robin', () => {
   let players: Players;
   let tournament: RRSwitchPartners;
   let listOfPlayers: Player[];
   const numberOfPlayers = 8;
 
-  const name = 'Padeliers';
-  const date = new Date();
-  const location = 'La MasO';
-  const price = 15;
-  const maxNumberOfPlayers = 35;
+  const { name, date, location, price, maxNumberOfPlayers } = tournamentInfo;
 
   const tournamentParams: TournamentParams = {
     name,
@@ -79,11 +76,37 @@ describe('', () => {
   });
 
   it('should have added correct tournament initial params', () => {
+    const info = tournament.info;
+
+    expect(info).toEqual(tournamentInfo);
+
     expect(tournament.name).toBe(name);
     expect(tournament.date).toBe(date);
     expect(tournament.location).toBe(location);
     expect(tournament.price).toBe(price);
     expect(tournament.maxNumberOfPlayers).toBe(maxNumberOfPlayers);
+  });
+
+  it('should allow to update tournament details (price,date, location...)', () => {
+    const name = 'Name';
+    const price = 35;
+    const date = new Date();
+    const location = 'La Maso';
+    const maxNumberOfPlayers = 65;
+
+    tournament.setName(name);
+    tournament.setPrice(price);
+    tournament.setDate(date);
+    tournament.setLocation(location);
+    tournament.setMaxNumberOfPlayers(maxNumberOfPlayers);
+
+    expect(tournament.info).toEqual({
+      name,
+      price,
+      date,
+      location,
+      maxNumberOfPlayers,
+    });
   });
 
   it('should have added players correctly', () => {
@@ -153,7 +176,7 @@ describe('', () => {
 
   it('should return the leaderboard sorted by wins', () => {
     // descending
-    const leaderboardByWins = tournament.leaderboard(WINS);
+    const leaderboardByWins = tournament.leaderboard();
     listOfPlayers.sort((a, b) =>
       Leaderboard.sortingLogic(a, b, WINS, DESCENDING),
     );

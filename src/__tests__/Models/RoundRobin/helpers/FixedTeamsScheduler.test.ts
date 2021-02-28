@@ -3,7 +3,7 @@ import {
   buildOpponentsGraph,
   buildPartneredGraph,
   getTeams,
-} from '@tests/MockData';
+} from '@tests/MockData/ParticipantsHelper';
 import { Teams } from '@interfaces/interfaces';
 
 describe('Fixed Teams Round Robin', () => {
