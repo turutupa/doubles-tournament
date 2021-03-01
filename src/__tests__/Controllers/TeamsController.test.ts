@@ -1,9 +1,7 @@
 import TeamsController from '@controllers/TeamsController';
-import Team from '@models/Team';
 import { Teams } from '@interfaces/interfaces';
 import { getTeams } from '@tests/MockData/ParticipantsHelper';
 import Player from '@/Models/Player';
-import { uuid } from '@utils/uuid';
 
 describe('Teams Controller', () => {
   let teams: Teams;
@@ -12,6 +10,10 @@ describe('Teams Controller', () => {
   beforeEach(() => {
     teams = getTeams(4);
     teamsController = new TeamsController(teams);
+  });
+
+  it('should throw error when trying to retrieve non existant team', () => {
+    expect(() => teamsController.team('non-existant-team')).toThrow();
   });
 
   it('should contain initially added teams', () => {
@@ -24,10 +26,19 @@ describe('Teams Controller', () => {
     expect(teamsController.teams).toEqual(teams);
   });
 
+  it('should throw error when adding a team of STRING and PLAYER', () => {
+    const one = 'one';
+    const two = new Player('two');
+
+    //@ts-expect-error
+    expect(() => teamsController.addTeam([one, two])).toThrow();
+  });
+
   it('should add one team given two string names', () => {
     const one = 'one';
     const two = 'two';
     const team = teamsController.addTeam([one, two]);
+
     // checks team has been added
     const retrievedTeam = teamsController.team(team.id);
     expect(retrievedTeam).toBeTruthy();
@@ -37,6 +48,7 @@ describe('Teams Controller', () => {
     expect(firstPlayer.name).toBe(one);
     expect(secondPlayer.name).toBe(two);
 
+    // checking on participants method
     expect(teamsController.participants()).toEqual(teamsController.teams);
 
     const defaultParticipantParams = {
@@ -51,7 +63,7 @@ describe('Teams Controller', () => {
     expect(secondPlayer.stats).toEqual(defaultParticipantParams);
   });
 
-  it('should add one more team of Players', () => {
+  it('should add one team give two Players', () => {
     const one = new Player('one');
     const two = new Player('two');
     const team = teamsController.addTeam([one, two]);

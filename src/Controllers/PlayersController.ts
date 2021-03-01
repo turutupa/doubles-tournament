@@ -42,7 +42,7 @@ export default class PlayersController implements GetParticipants {
     return newPlayers;
   };
 
-  addPlayer = (name: string): Player => {
+  public addPlayer = (name: string): Player => {
     if (this._players.get(name)) {
       throw `Player ${name} already exists`;
     }

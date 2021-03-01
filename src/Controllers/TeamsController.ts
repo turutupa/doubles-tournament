@@ -11,10 +11,10 @@ export default class TeamsController implements GetParticipants {
   }
 
   public team = (teamID: string): Team => {
-    const t = this._teams.get(teamID);
-    if (!t) throw new Error(`Team ${teamID} not found!`);
+    const team = this._teams.get(teamID);
+    if (!team) throw new Error(`Team ${teamID} not found!`);
 
-    return t;
+    return team;
   };
 
   public participants(): Teams {

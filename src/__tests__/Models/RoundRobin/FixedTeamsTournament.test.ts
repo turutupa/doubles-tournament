@@ -17,7 +17,6 @@ describe('Fixed Round Robin Tournament', () => {
 
   beforeEach(() => {
     tournament = Tournament.RoundRobin.fixedTeams();
-    // tournament.addTeams();
   });
 
   it('', () => {});
