@@ -1,10 +1,14 @@
 import Match from '@models/Match';
-import { MatchesMap } from '@interfaces/interfaces';
+import { MatchResults, MatchesMap } from '@interfaces/interfaces';
 import Player from '@models/Player';
 import Team from '@models/Team';
 
 export default class MatchController {
-  public static update(matches: MatchesMap, id: string, results: number[][]) {
+  public static update(
+    matches: MatchesMap,
+    id: string,
+    results: number[][],
+  ): void {
     // update match
     const match: Match = matches[id];
     match.scoreboard = results;
@@ -16,7 +20,7 @@ export default class MatchController {
     home: Team,
     away: Team,
     results: number[][],
-  ) {
+  ): void {
     const [firstHome, secondHome]: [Player, Player] = home.players;
     const [firstAway, secondAway]: [Player, Player] = away.players;
 
@@ -37,19 +41,26 @@ export default class MatchController {
       }
     }
 
-    const homeResults = {
+    const homeResults: MatchResults = {
       wins: homeSets > awaySets ? 1 : 0,
       losses: homeSets > awaySets ? 0 : 1,
       games: homeWonGames,
       sets: homeSets,
     };
 
-    const awayResults = {
+    const awayResults: MatchResults = {
       wins: awaySets > homeSets ? 1 : 0,
       losses: awaySets > homeSets ? 0 : 1,
       games: awayWonGames,
       sets: awaySets,
     };
+
+    if (homeSets === 0 && awaySets === 0) {
+      delete homeResults.wins;
+      delete homeResults.losses;
+      delete awayResults.wins;
+      delete awayResults.losses;
+    }
 
     // update home players
     firstHome.addResults(homeResults);
@@ -59,7 +70,7 @@ export default class MatchController {
     firstAway.addResults(awayResults);
     secondAway.addResults(awayResults);
 
-    // update home team
+    // update teams
     home.addResults(homeResults);
     away.addResults(awayResults);
   }

@@ -60,16 +60,20 @@ export interface MatchesMap {
   [key: string]: Match;
 }
 
+// freakin weird syntax I chose:
+// rawSchedule gives rounds with player names
+// schedule gives rounds with matchIDs
+// matches is a map with key/value => matchId/match
 export interface ScheduleInfo {
   rawSchedule?: RawSchedule;
   schedule: string[][];
   matches: MatchesMap;
 }
 
+export type ParticipantMap = Map<string, Participant>;
 export type Players = Map<string, Player>;
 export type Teams = Map<string, Team>;
 export type Participant = Player | Team;
-export type ParticipantMap = Map<string, Participant>;
 
 export type isAscending = 'ascending' | 'descending';
 export const ASCENDING = 'ascending';

@@ -16,7 +16,7 @@ import {
   ParticipantMap,
 } from '@interfaces/interfaces';
 
-export default class SwitchRoundRobinScheduler {
+export default class RoundRobinScheduler {
   public static fixedTeams(teams: Teams) {
     const tables = tablesForFixedRR(teams.size);
     return this.calculate<Teams>(teams, tables);
