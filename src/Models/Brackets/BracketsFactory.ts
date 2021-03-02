@@ -7,7 +7,7 @@ export default class Brackets {
     return new SingleElimination(params);
   }
 
-  public doubleElimination() {
-    return new DoubleElimination();
+  public doubleElimination(params?: TournamentParams) {
+    return new DoubleElimination(params);
   }
 }

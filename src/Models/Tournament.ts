@@ -5,8 +5,9 @@ import {
   ParticipantParams,
   isAscending,
   DESCENDING,
+  ITournament,
 } from '@interfaces/interfaces';
-import { inAWeekFromDateNow } from '@utils/constants';
+import { WINS } from '@interfaces/constants';
 import { uuid } from '@utils/uuid';
 import { defaultTournamentValues } from '@utils/constants';
 
@@ -18,7 +19,8 @@ const {
   defaultMaxNumberOfPlayers,
 } = defaultTournamentValues;
 
-export default abstract class Tournament<T extends ParticipantsController> {
+export default abstract class Tournament<T extends ParticipantsController>
+  implements ITournament {
   public id: string;
   public name: string;
   public date: Date;
@@ -91,7 +93,7 @@ export default abstract class Tournament<T extends ParticipantsController> {
 
     if (!sortable) {
       // provide default sortable key
-      return Leaderboard.sortBy.call(this, participants, 'wins', DESCENDING);
+      return Leaderboard.sortBy.call(this, participants, WINS, DESCENDING);
     } else if (!ascending) {
       return Leaderboard.sortBy.call(this, participants, sortable, DESCENDING);
     }

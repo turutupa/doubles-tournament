@@ -1,5 +1,5 @@
 import RoundRobinFactory from '@roundrobin/RoundRobinFactory';
-import Brackets from '@brackets/Brackets';
+import BracketsFactory from '@brackets/BracketsFactory';
 
 export default class TournamentFactory {
   public static get RoundRobin() {
@@ -7,6 +7,6 @@ export default class TournamentFactory {
   }
 
   public static get Brackets() {
-    return new Brackets();
+    return new BracketsFactory();
   }
 }
