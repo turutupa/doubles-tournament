@@ -2,6 +2,7 @@ import Tournament from '@models/Tournament';
 import TeamsController from '@controllers/TeamsController';
 import Match from '@models/Match';
 import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
+import MatchController from '@controllers/MatchController';
 import {
   ITournament,
   TournamentParams,
@@ -13,7 +14,7 @@ export default class FixedTeamsTournament
   implements ITournament {
   protected participants = new TeamsController();
   private _schedule: ScheduleInfo = { schedule: [], matches: {} };
-  private _scheduleBuilder = RoundRobinScheduler;
+  private roundRobinScheduler = RoundRobinScheduler;
 
   constructor(params?: TournamentParams) {
     super(params);
@@ -23,14 +24,35 @@ export default class FixedTeamsTournament
   public addTeam = this.participants.addTeam;
   public addTeams = this.participants.addTeams;
 
-  public schedule() {}
+  public schedule(): Match[][] {
+    return this.roundRobinScheduler.translateMatchIDsToMatches(this._schedule);
+  }
 
-  public newSchedule() {}
-  public resetSchedule() {}
+  public newSchedule(): Match[][] {
+    if (this._schedule.schedule.length > 0) {
+      throw new Error(`
+        There is an ongoing tournament.
+        If you want to restart the tournament
+        with same players use resetTournament
+      `);
+    }
 
-  // private createSchedule(): Match[][] {
-  //   this._schedule =  this._scheduleBuilder.fixedTeams(this.participants.teams);
+    return this.createSchedule();
+  }
 
-  //   return this._schedule
-  // }
+  private createSchedule(): Match[][] {
+    this._schedule = this.roundRobinScheduler.switchPartners(
+      this.participants.teams,
+    );
+
+    return this.roundRobinScheduler.translateMatchIDsToMatches(this._schedule);
+  }
+
+  public resetSchedule(): Match[][] {
+    return this.createSchedule();
+  }
+
+  public addResults(matchId: string, results: number[][]): void {
+    MatchController.update(this._schedule.matches, matchId, results);
+  }
 }

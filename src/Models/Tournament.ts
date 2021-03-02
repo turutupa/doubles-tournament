@@ -1,29 +1,40 @@
 import Leaderboard from '@controllers/Leaderboard';
 import {
   TournamentParams,
-  ParticipantHandler,
+  ParticipantsController,
   ParticipantParams,
   isAscending,
   DESCENDING,
 } from '@interfaces/interfaces';
 import { inAWeekFromDateNow } from '@utils/constants';
 import { uuid } from '@utils/uuid';
+import { defaultTournamentValues } from '@utils/constants';
 
-export default abstract class Tournament<T extends ParticipantHandler> {
+const {
+  defaultName,
+  defaultPrice,
+  defaultLocation,
+  defaultDate,
+  defaultMaxNumberOfPlayers,
+} = defaultTournamentValues;
+
+export default abstract class Tournament<T extends ParticipantsController> {
   public id: string;
   public name: string;
   public date: Date;
   public price: number;
   public maxNumberOfPlayers: number;
   public location: string;
+  private params?: TournamentParams;
 
-  constructor(private params?: TournamentParams) {
-    this.id = String(uuid());
-    this.name = params?.name || 'Please, set a name';
-    this.date = params?.date || inAWeekFromDateNow;
-    this.price = params?.price || 0;
-    this.maxNumberOfPlayers = params?.maxNumberOfPlayers || 15;
-    this.location = params?.location || 'Please, set a location';
+  constructor(params?: TournamentParams) {
+    this.id = uuid();
+    this.name = params?.name || defaultName;
+    this.date = params?.date || defaultDate;
+    this.price = params?.price || defaultPrice;
+    this.maxNumberOfPlayers =
+      params?.maxNumberOfPlayers || defaultMaxNumberOfPlayers;
+    this.location = params?.location || defaultLocation;
   }
 
   protected abstract participants: T;

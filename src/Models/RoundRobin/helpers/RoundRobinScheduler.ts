@@ -14,7 +14,9 @@ import {
   MatchesMap,
   Participant,
   ParticipantMap,
+  ParticipantsController,
 } from '@interfaces/interfaces';
+import MatchController from '@controllers/MatchController';
 
 export default class RoundRobinScheduler {
   public static fixedTeams(teams: Teams) {
@@ -31,6 +33,28 @@ export default class RoundRobinScheduler {
 
     const tables = [...tablesForSwitchRR[players.size]];
     return this.calculate<Players>(players, tables);
+  }
+
+  public static translateMatchIDsToMatches(
+    scheduleInfo: ScheduleInfo,
+  ): Match[][] {
+    return scheduleInfo.schedule.map((round: string[]) => {
+      return round.map((matchID: string) => {
+        const match = scheduleInfo.matches[matchID];
+        return match;
+      });
+    });
+  }
+
+  public static updatePlayersAndMatchesStats(scheduleInfo: ScheduleInfo): void {
+    scheduleInfo.schedule.forEach((round: string[]) => {
+      round.forEach((matchID: string) => {
+        const match = scheduleInfo.matches[matchID];
+        const { home, away, scoreboard } = match;
+
+        MatchController.updatePlayersAndTeams(home, away, scoreboard);
+      });
+    });
   }
 
   private static calculate<T extends ParticipantMap>(

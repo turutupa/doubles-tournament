@@ -1,6 +1,14 @@
 import Tournament from '@models/Tournament';
 import PlayersController from '@controllers/PlayersController';
-import { inAWeekFromDateNow } from '@utils/constants';
+import { defaultTournamentValues } from '@utils/constants';
+
+const {
+  defaultName,
+  defaultLocation,
+  defaultPrice,
+  defaultMaxNumberOfPlayers,
+  defaultDate,
+} = defaultTournamentValues;
 
 describe('Abstract Tournament', () => {
   class TestTournament extends Tournament<PlayersController> {
@@ -25,11 +33,11 @@ describe('Abstract Tournament', () => {
   });
 
   it('should have default values', () => {
-    expect(tournament.name).toBe('Please, set a name');
-    expect(tournament.price).toBe(0);
-    expect(tournament.location).toBe('Please, set a location');
-    expect(tournament.date).toBe(inAWeekFromDateNow);
-    expect(tournament.maxNumberOfPlayers).toBe(15);
+    expect(tournament.name).toBe(defaultName);
+    expect(tournament.price).toBe(defaultPrice);
+    expect(tournament.location).toBe(defaultLocation);
+    expect(tournament.date).toBe(defaultDate);
+    expect(tournament.maxNumberOfPlayers).toBe(defaultMaxNumberOfPlayers);
   });
 
   it('should allow to pass params as default values', () => {

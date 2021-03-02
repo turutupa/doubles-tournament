@@ -1,8 +1,8 @@
 import Player from '@models/Player';
 import Team from '@models/Team';
 import Match from '@models/Match';
-import PlayersHandler from '@controllers/PlayersController';
-import TeamsHandler from '@controllers/TeamsController';
+import PlayersController from '@controllers/PlayersController';
+import TeamsController from '@controllers/TeamsController';
 
 export interface ITournament {
   id: string;
@@ -49,7 +49,7 @@ export interface MatchResults {
   sets?: number;
 }
 
-export type ParticipantHandler = PlayersHandler | TeamsHandler;
+export type ParticipantsController = PlayersController | TeamsController;
 export interface GetParticipants {
   participants(): Players | Teams;
 }
