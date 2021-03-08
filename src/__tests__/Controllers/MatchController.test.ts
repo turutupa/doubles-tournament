@@ -127,4 +127,18 @@ describe('Match Controller', () => {
     expect(home.stats).toEqual(homeResultSecondMatch);
     expect(away.stats).toEqual(awayResultSecondMatch);
   });
+
+  it('should not add any wins or losses if no sets were won', () => {
+    const result = [
+      [0, 0, 0],
+      [0, 0, 0],
+    ];
+
+    MatchController.update(matchesMap, matchID, firstResult);
+    MatchController.update(matchesMap, secondMatchID, secondResult);
+    MatchController.update(matchesMap, matchID, result);
+
+    expect(home.stats).toEqual(homeResultSecondMatch);
+    expect(away.stats).toEqual(awayResultSecondMatch);
+  });
 });

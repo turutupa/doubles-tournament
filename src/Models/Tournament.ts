@@ -1,11 +1,16 @@
 import Leaderboard from '@controllers/Leaderboard';
+import PlayersController from '@controllers/PlayersController';
+import TeamsController from '@controllers/TeamsController';
+import Match from '@models/Match';
+import RoundRobinScheduler from './RoundRobin/helpers/RoundRobinScheduler';
+import MatchController from '@controllers/MatchController';
 import {
   TournamentParams,
-  ParticipantsController,
   ParticipantParams,
   isAscending,
   DESCENDING,
   ITournament,
+  ScheduleInfo,
 } from '@interfaces/interfaces';
 import { WINS } from '@interfaces/constants';
 import { uuid } from '@utils/uuid';
@@ -19,17 +24,25 @@ const {
   defaultMaxNumberOfPlayers,
 } = defaultTournamentValues;
 
-export default abstract class Tournament<T extends ParticipantsController>
-  implements ITournament {
+export default abstract class Tournament<
+  T extends PlayersController | TeamsController
+> implements ITournament {
   public id: string;
   public name: string;
   public date: Date;
   public price: number;
   public maxNumberOfPlayers: number;
   public location: string;
-  private params?: TournamentParams;
+  protected params?: TournamentParams;
+  public participants: T;
+  protected tournamentScheduler: (participants: any) => ScheduleInfo;
+  protected _schedule: ScheduleInfo = { schedule: [], matches: {} };
 
-  constructor(params?: TournamentParams) {
+  constructor(
+    participants: T,
+    tournamentScheduler: (participants: any) => ScheduleInfo,
+    params?: TournamentParams,
+  ) {
     this.id = uuid();
     this.name = params?.name || defaultName;
     this.date = params?.date || defaultDate;
@@ -37,12 +50,39 @@ export default abstract class Tournament<T extends ParticipantsController>
     this.maxNumberOfPlayers =
       params?.maxNumberOfPlayers || defaultMaxNumberOfPlayers;
     this.location = params?.location || defaultLocation;
+    this.participants = participants;
+    this.tournamentScheduler = tournamentScheduler;
   }
 
-  protected abstract participants: T;
-  public abstract schedule(): void;
-  public abstract newSchedule(): void;
-  public abstract resetSchedule(): void;
+  public schedule(): Match[][] {
+    return this._schedule.schedule;
+  }
+
+  public newSchedule(): Match[][] {
+    if (this._schedule.schedule.length > 0) {
+      throw new Error(`
+        There is an ongoing tournament.
+        If you want to restart the tournament
+        with same players use resetTournament
+      `);
+    }
+
+    return this.createSchedule();
+  }
+
+  public resetSchedule(): Match[][] {
+    return this.createSchedule();
+  }
+
+  private createSchedule(): Match[][] {
+    this._schedule = this.tournamentScheduler(this.participants.participants);
+
+    return this._schedule.schedule;
+  }
+
+  public addResults(matchId: string, results: number[][]): void {
+    MatchController.update(this._schedule.matches, matchId, results);
+  }
 
   public get info() {
     return {
@@ -54,42 +94,11 @@ export default abstract class Tournament<T extends ParticipantsController>
     };
   }
 
-  public get log(): void {
-    console.log(`
-    name: ${this.name}
-    date: ${this.date}
-    price: ${this.price}
-    size: ${this.maxNumberOfPlayers} players
-    location: ${this.location}
-    `);
-    return;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
-  }
-
-  public setPrice(price: number): void {
-    this.price = price;
-  }
-
-  public setDate(date: Date): void {
-    this.date = date;
-  }
-
-  public setLocation(location: string): void {
-    this.location = location;
-  }
-
-  public setMaxNumberOfPlayers(maxNumberOfPlayers: number): void {
-    this.maxNumberOfPlayers = maxNumberOfPlayers;
-  }
-
   public leaderboard(
     sortable?: keyof ParticipantParams,
     ascending?: isAscending,
   ) {
-    const participants = this.participants.participants();
+    const participants = this.participants.participants;
 
     if (!sortable) {
       // provide default sortable key

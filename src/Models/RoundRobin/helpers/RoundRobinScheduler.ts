@@ -14,17 +14,15 @@ import {
   MatchesMap,
   Participant,
   ParticipantMap,
-  ParticipantsController,
 } from '@interfaces/interfaces';
-import MatchController from '@controllers/MatchController';
 
 export default class RoundRobinScheduler {
-  public static fixedTeams(teams: Teams) {
+  public static fixedTeams(teams: Teams): ScheduleInfo {
     const tables = tablesForFixedRR(teams.size);
-    return this.calculate<Teams>(teams, tables);
+    return RoundRobinScheduler.calculate<Teams>(teams, tables);
   }
 
-  public static switchPartners(players: Players) {
+  public static switchPartners(players: Players): ScheduleInfo {
     if (!tablesForSwitchRR[players.size]) {
       throw new Error(
         `Tables for ${players.size} number of players not calculated`,
@@ -32,32 +30,10 @@ export default class RoundRobinScheduler {
     }
 
     const tables = [...tablesForSwitchRR[players.size]];
-    return this.calculate<Players>(players, tables);
+    return RoundRobinScheduler.calculate<Players>(players, tables);
   }
 
-  public static translateMatchIDsToMatches(
-    scheduleInfo: ScheduleInfo,
-  ): Match[][] {
-    return scheduleInfo.schedule.map((round: string[]) => {
-      return round.map((matchID: string) => {
-        const match = scheduleInfo.matches[matchID];
-        return match;
-      });
-    });
-  }
-
-  public static updatePlayersAndMatchesStats(scheduleInfo: ScheduleInfo): void {
-    scheduleInfo.schedule.forEach((round: string[]) => {
-      round.forEach((matchID: string) => {
-        const match = scheduleInfo.matches[matchID];
-        const { home, away, scoreboard } = match;
-
-        MatchController.updatePlayersAndTeams(home, away, scoreboard);
-      });
-    });
-  }
-
-  private static calculate<T extends ParticipantMap>(
+  public static calculate<T extends ParticipantMap>(
     participants: T,
     tables: IsTable[],
   ): ScheduleInfo {
@@ -66,7 +42,7 @@ export default class RoundRobinScheduler {
     );
 
     let rawSchedule: [string, string][][][] = [];
-    let schedule: string[][] = []; // Rounds with ID's of the matches
+    let schedule: Match[][] = []; // Rounds with ID's of the matches
     let matches: MatchesMap = {}; // Map of matches stored by ID
     const positionsMatrix: number[][] = SequenceGenerator.calculate(
       listOfParticipants,
@@ -142,8 +118,8 @@ export default class RoundRobinScheduler {
     participants: T,
     round: [string, string][][],
     matchesMap: MatchesMap,
-  ) {
-    const roundOfIDs = [];
+  ): Match[] {
+    const roundOfMatches: Match[] = [];
 
     for (let match of round) {
       let newMatch: Match | undefined;
@@ -190,9 +166,9 @@ export default class RoundRobinScheduler {
       if (!newMatch) throw new Error(`No match was created!!`);
 
       matchesMap[newMatch.id] = newMatch;
-      roundOfIDs.push(String(newMatch.id));
+      roundOfMatches.push(newMatch);
     }
 
-    return roundOfIDs;
+    return roundOfMatches;
   }
 }

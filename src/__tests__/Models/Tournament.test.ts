@@ -1,6 +1,9 @@
 import Tournament from '@models/Tournament';
 import PlayersController from '@controllers/PlayersController';
 import { defaultTournamentValues } from '@utils/constants';
+import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
+import { TournamentParams } from '@/Interfaces/interfaces';
+import { tournamentInfo } from '@tests/MockData/TournamentInitialParams';
 
 const {
   defaultName,
@@ -12,24 +15,20 @@ const {
 
 describe('Abstract Tournament', () => {
   class TestTournament extends Tournament<PlayersController> {
-    protected participants = new PlayersController();
-    schedule() {}
-    newSchedule() {}
-    resetSchedule() {}
+    constructor(params?: TournamentParams) {
+      super(
+        new PlayersController(),
+        RoundRobinScheduler.switchPartners,
+        params,
+      );
+    }
   }
   let tournament: TestTournament;
   let tournamentWithParams: TestTournament;
-  const defaultParams = {
-    name: 'Name',
-    price: 99,
-    date: new Date(),
-    maxNumberOfPlayers: 99,
-    location: 'Location',
-  };
 
   beforeEach(() => {
     tournament = new TestTournament();
-    tournamentWithParams = new TestTournament(defaultParams);
+    tournamentWithParams = new TestTournament(tournamentInfo);
   });
 
   it('should have default values', () => {
@@ -41,6 +40,11 @@ describe('Abstract Tournament', () => {
   });
 
   it('should allow to pass params as default values', () => {
-    expect(tournamentWithParams.info).toEqual(defaultParams);
+    expect(tournamentWithParams.info).toEqual(tournamentInfo);
+  });
+
+  it('should allow to modify tournament price', () => {
+    tournament.price = 20;
+    expect(tournament.price).toBe(20);
   });
 });

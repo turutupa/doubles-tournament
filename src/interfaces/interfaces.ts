@@ -11,10 +11,9 @@ export interface ITournament {
   price: number;
   maxNumberOfPlayers: number;
   location: string;
-  log: void;
-  schedule(): void;
-  newSchedule(): void;
-  resetSchedule(): void;
+  schedule(): Match[][];
+  newSchedule(): Match[][];
+  resetSchedule(): Match[][];
   leaderboard(): void;
 }
 
@@ -51,7 +50,7 @@ export interface MatchResults {
 
 export type ParticipantsController = PlayersController | TeamsController;
 export interface GetParticipants {
-  participants(): Players | Teams;
+  participants: Players | Teams;
 }
 
 export type RawSchedule = [string, string][][][];
@@ -66,7 +65,7 @@ export interface MatchesMap {
 // matches is a map with key/value => matchId/match
 export interface ScheduleInfo {
   rawSchedule?: RawSchedule;
-  schedule: string[][];
+  schedule: Match[][];
   matches: MatchesMap;
 }
 

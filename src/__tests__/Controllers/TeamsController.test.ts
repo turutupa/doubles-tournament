@@ -49,7 +49,7 @@ describe('Teams Controller', () => {
     expect(secondPlayer.name).toBe(two);
 
     // checking on participants method
-    expect(teamsController.participants()).toEqual(teamsController.teams);
+    expect(teamsController.teams.size).toBe(5);
 
     const defaultParticipantParams = {
       wins: 0,
@@ -63,7 +63,7 @@ describe('Teams Controller', () => {
     expect(secondPlayer.stats).toEqual(defaultParticipantParams);
   });
 
-  it('should add one team give two Players', () => {
+  it('should add one team given two Players', () => {
     const one = new Player('one');
     const two = new Player('two');
     const team = teamsController.addTeam([one, two]);

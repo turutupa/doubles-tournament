@@ -36,7 +36,7 @@ export default class MatchController {
     for (let i = 0; i < results[0].length; i++) {
       if (homeScore[i] > awayScore[i]) {
         homeSets++;
-      } else {
+      } else if (awayScore[i] > homeScore[i]) {
         awaySets++;
       }
     }

@@ -32,9 +32,8 @@ describe('Fixed Teams Round Robin', () => {
 
     for (let round of tournament.schedule) {
       for (let match of round) {
-        const m = tournament.matches[match];
-        const home = m.home;
-        const away = m.away;
+        const home = match.home;
+        const away = match.away;
 
         updatePlayerGraph(opponentsGraph[home.id], [away.id]);
         updatePlayerGraph(opponentsGraph[away.id], [home.id]);
@@ -47,10 +46,6 @@ describe('Fixed Teams Round Robin', () => {
 
 interface OpponentCounter {
   [key: string]: any;
-}
-
-interface PlayersGraph {
-  [key: string]: OpponentCounter;
 }
 
 function updatePlayerGraph(root: OpponentCounter, opponents: string[]): void {

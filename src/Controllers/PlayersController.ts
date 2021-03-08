@@ -4,9 +4,10 @@ import Player from '@models/Player';
 export default class PlayersController implements GetParticipants {
   private _players: Players = new Map<string, Player>();
 
-  public participants(): Players {
-    return this._players;
-  }
+  public participants = this._players;
+  // public get participants(): Players {
+  //   return this._players;
+  // }
 
   public player = (name: string): Player => {
     const existingPlayer = this._players.get(name);
@@ -20,7 +21,7 @@ export default class PlayersController implements GetParticipants {
 
   public addPlayers = (players: string[]): Player[] => {
     // Before adding players first check if
-    // all players are unique and also it
+    // all players are unique and also that it
     // doesn't already exist in this._players
     if (players.length != new Set(players).size) {
       throw `Please provide unique names of players`;

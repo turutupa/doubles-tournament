@@ -3,7 +3,6 @@ import RRSwitchPartners from '@roundrobin/SwitchPartnersTournament';
 import Player from '@models/Player';
 import Leaderboard from '@controllers/Leaderboard';
 import {
-  Players,
   TournamentParams,
   ASCENDING,
   DESCENDING,
@@ -12,7 +11,6 @@ import { WINS, LOSSES, GAMES, SETS, ID } from '@interfaces/constants';
 import { tournamentInfo } from '@tests/MockData/TournamentInitialParams';
 
 describe('Switch Partners Round Robin', () => {
-  let players: Players;
   let tournament: RRSwitchPartners;
   let listOfPlayers: Player[];
   const numberOfPlayers = 8;
@@ -94,11 +92,11 @@ describe('Switch Partners Round Robin', () => {
     const location = 'La Maso';
     const maxNumberOfPlayers = 65;
 
-    tournament.setName(name);
-    tournament.setPrice(price);
-    tournament.setDate(date);
-    tournament.setLocation(location);
-    tournament.setMaxNumberOfPlayers(maxNumberOfPlayers);
+    tournament.name = name;
+    tournament.price = price;
+    tournament.date = date;
+    tournament.location = location;
+    tournament.maxNumberOfPlayers = maxNumberOfPlayers;
 
     expect(tournament.info).toEqual({
       name,
