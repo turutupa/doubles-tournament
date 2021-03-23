@@ -1,13 +1,16 @@
-import { Players, GetParticipants } from '@interfaces/interfaces';
+import { GetParticipants, Players } from '@interfaces/interfaces';
 import Player from '@models/Player';
 
 export default class PlayersController implements GetParticipants {
-  private _players: Players = new Map<string, Player>();
+  private _players: Players;
 
-  public participants = this._players;
-  // public get participants(): Players {
-  //   return this._players;
-  // }
+  constructor(players?: Players) {
+    this._players = players ?? (new Map() as Players);
+  }
+
+  public get participants(): Players {
+    return this._players ?? (new Map() as Players);
+  }
 
   public player = (name: string): Player => {
     const existingPlayer = this._players.get(name);

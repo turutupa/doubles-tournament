@@ -1,9 +1,9 @@
-import Tournament from '@models/Tournament';
 import PlayersController from '@controllers/PlayersController';
-import { defaultTournamentValues } from '@utils/constants';
+import { TournamentParams } from '@interfaces/interfaces';
+import Tournament from '@models/Tournament';
 import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
-import { TournamentParams } from '@/Interfaces/interfaces';
 import { tournamentInfo } from '@tests/MockData/TournamentInitialParams';
+import { defaultTournamentValues } from '@utils/constants';
 
 const {
   defaultName,

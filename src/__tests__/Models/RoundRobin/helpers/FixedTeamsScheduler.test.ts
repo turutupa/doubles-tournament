@@ -1,12 +1,8 @@
-import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
-import {
-  buildOpponentsGraph,
-  buildPartneredGraph,
-  getTeams,
-} from '@tests/MockData/ParticipantsHelper';
 import { Teams } from '@interfaces/interfaces';
+import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
+import { getTeams } from '@tests/MockData/ParticipantsHelper';
 
-describe('Fixed Teams Round Robin', () => {
+describe('Fixed Teams Round Robin Scheduler', () => {
   it('should have one team playing against each other once', () => {
     const fourTeams: Teams = getTeams(4);
     const tournament = RoundRobinScheduler.fixedTeams(fourTeams);

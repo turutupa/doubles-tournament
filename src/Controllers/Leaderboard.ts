@@ -1,10 +1,10 @@
+import { SORTABLE, TIEBREAKER_ORDER } from '@interfaces/constants';
 import {
-  ParticipantParams,
-  ParticipantMap,
-  isAscending,
   ASCENDING,
+  isAscending,
+  ParticipantMap,
+  ParticipantParams,
 } from '@interfaces/interfaces';
-import { TIEBREAKER_ORDER, SORTABLE } from '@interfaces/constants';
 
 export default class Leaderboard {
   public static sortBy(

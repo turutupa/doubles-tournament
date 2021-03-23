@@ -1,20 +1,19 @@
 import Leaderboard from '@controllers/Leaderboard';
+import MatchController from '@controllers/MatchController';
 import PlayersController from '@controllers/PlayersController';
 import TeamsController from '@controllers/TeamsController';
-import Match from '@models/Match';
-import RoundRobinScheduler from './RoundRobin/helpers/RoundRobinScheduler';
-import MatchController from '@controllers/MatchController';
-import {
-  TournamentParams,
-  ParticipantParams,
-  isAscending,
-  DESCENDING,
-  ITournament,
-  ScheduleInfo,
-} from '@interfaces/interfaces';
 import { WINS } from '@interfaces/constants';
-import { uuid } from '@utils/uuid';
+import {
+  DESCENDING,
+  isAscending,
+  ITournament,
+  ParticipantParams,
+  ScheduleInfo,
+  TournamentParams,
+} from '@interfaces/interfaces';
+import Match from '@models/Match';
 import { defaultTournamentValues } from '@utils/constants';
+import { uuid } from '@utils/uuid';
 
 const {
   defaultName,
@@ -34,7 +33,7 @@ export default abstract class Tournament<
   public maxNumberOfPlayers: number;
   public location: string;
   protected params?: TournamentParams;
-  public participants: T;
+  protected participants: T;
   protected tournamentScheduler: (participants: any) => ScheduleInfo;
   protected _schedule: ScheduleInfo = { schedule: [], matches: {} };
 
@@ -54,7 +53,7 @@ export default abstract class Tournament<
     this.tournamentScheduler = tournamentScheduler;
   }
 
-  public schedule(): Match[][] {
+  public get schedule(): Match[][] {
     return this._schedule.schedule;
   }
 

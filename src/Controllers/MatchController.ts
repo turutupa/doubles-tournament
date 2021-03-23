@@ -1,5 +1,5 @@
+import { MatchesMap, MatchResults } from '@interfaces/interfaces';
 import Match from '@models/Match';
-import { MatchResults, MatchesMap } from '@interfaces/interfaces';
 import Player from '@models/Player';
 import Team from '@models/Team';
 

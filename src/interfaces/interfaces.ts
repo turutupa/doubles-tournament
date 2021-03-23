@@ -1,8 +1,8 @@
-import Player from '@models/Player';
-import Team from '@models/Team';
-import Match from '@models/Match';
 import PlayersController from '@controllers/PlayersController';
 import TeamsController from '@controllers/TeamsController';
+import Match from '@models/Match';
+import Player from '@models/Player';
+import Team from '@models/Team';
 
 export interface ITournament {
   id: string;
@@ -11,7 +11,7 @@ export interface ITournament {
   price: number;
   maxNumberOfPlayers: number;
   location: string;
-  schedule(): Match[][];
+  schedule: Match[][];
   newSchedule(): Match[][];
   resetSchedule(): Match[][];
   leaderboard(): void;

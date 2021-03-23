@@ -1,13 +1,13 @@
-import Tournament from '@models/TournamentFactory';
-import RRSwitchPartners from '@roundrobin/SwitchPartnersTournament';
-import Player from '@models/Player';
 import Leaderboard from '@controllers/Leaderboard';
+import { GAMES, ID, LOSSES, SETS, WINS } from '@interfaces/constants';
 import {
-  TournamentParams,
   ASCENDING,
   DESCENDING,
+  TournamentParams,
 } from '@interfaces/interfaces';
-import { WINS, LOSSES, GAMES, SETS, ID } from '@interfaces/constants';
+import Player from '@models/Player';
+import Tournament from '@models/TournamentFactory';
+import RRSwitchPartners from '@roundrobin/SwitchPartnersTournament';
 import { tournamentInfo } from '@tests/MockData/TournamentInitialParams';
 
 describe('Switch Partners Round Robin', () => {
@@ -119,7 +119,7 @@ describe('Switch Partners Round Robin', () => {
     tournament.resetSchedule();
 
     // yep, a very nasty nesting loop
-    for (let round of tournament.schedule()) {
+    for (let round of tournament.schedule) {
       for (let match of round) {
         for (let teamResult of match.scoreboard) {
           expect(teamResult.every((r: number) => r === 0)).toBeTruthy();

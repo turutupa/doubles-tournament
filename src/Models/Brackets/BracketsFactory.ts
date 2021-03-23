@@ -1,13 +1,13 @@
 import { TournamentParams } from '@interfaces/interfaces';
-import SingleElimination from '@brackets/SingleElimination';
-import DoubleElimination from '@brackets/DoubleElimination';
+import Brackets from '@brackets/Brackets';
+import BracketsScheduler from '@brackets/helpers/BracketsScheduler';
 
-export default class Brackets {
+export default class BracketsFactory {
   public singleElimination(params?: TournamentParams) {
-    return new SingleElimination(params);
+    return new Brackets(BracketsScheduler.singleElimination, params);
   }
 
   public doubleElimination(params?: TournamentParams) {
-    return new DoubleElimination(params);
+    return new Brackets(BracketsScheduler.doubleElimination, params);
   }
 }

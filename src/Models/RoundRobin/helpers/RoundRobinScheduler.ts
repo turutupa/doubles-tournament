@@ -1,5 +1,13 @@
-import Player from '@models/Player';
+import {
+  MatchesMap,
+  Participant,
+  ParticipantMap,
+  Players,
+  ScheduleInfo,
+  Teams,
+} from '@interfaces/interfaces';
 import Match from '@models/Match';
+import Player from '@models/Player';
 import Team from '@models/Team';
 import SequenceGenerator from '@roundrobin/helpers/SequenceGenerator';
 import {
@@ -7,18 +15,11 @@ import {
   tablesForFixedRR,
   tablesForSwitchRR,
 } from '@roundrobin/helpers/tables';
-import {
-  Teams,
-  Players,
-  ScheduleInfo,
-  MatchesMap,
-  Participant,
-  ParticipantMap,
-} from '@interfaces/interfaces';
 
 export default class RoundRobinScheduler {
   public static fixedTeams(teams: Teams): ScheduleInfo {
     const tables = tablesForFixedRR(teams.size);
+
     return RoundRobinScheduler.calculate<Teams>(teams, tables);
   }
 

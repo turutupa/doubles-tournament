@@ -1,16 +1,18 @@
+import { GetParticipants, Teams } from '@interfaces/interfaces';
 import Player from '@models/Player';
 import Team from '@models/Team';
-import { GetParticipants, Teams } from '@interfaces/interfaces';
 import { uuid } from '@utils/uuid';
 
 export default class TeamsController implements GetParticipants {
-  private _teams: Teams = new Map();
+  private _teams: Teams;
 
   constructor(teams?: Teams) {
-    this._teams = teams || new Map();
+    this._teams = teams ?? (new Map() as Teams);
   }
 
-  public participants = this._teams;
+  public get participants(): Teams {
+    return this.teams ?? (new Map() as Teams);
+  }
 
   public team = (teamID: string): Team => {
     const team = this._teams.get(teamID);

@@ -1,12 +1,12 @@
+import { Players, ScheduleInfo } from '@interfaces/interfaces';
 import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
-import { ScheduleInfo, Players } from '@interfaces/interfaces';
 import {
-  getPlayers,
   buildOpponentsGraph,
   buildPartneredGraph,
+  getPlayers,
 } from '@tests/MockData/ParticipantsHelper';
 
-describe('Switch Partners Round Robin Tournament', () => {
+describe('Switch Partners Round Robin Scheduler', () => {
   let tournament: ScheduleInfo;
   let eightPlayers: Players = getPlayers(8);
 
