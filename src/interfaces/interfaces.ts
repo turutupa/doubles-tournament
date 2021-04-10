@@ -3,6 +3,7 @@ import TeamsController from '@controllers/TeamsController';
 import Match from '@models/Match';
 import Player from '@models/Player';
 import Team from '@models/Team';
+import { Syncable } from './sync';
 
 export interface ITournament {
   id: string;
@@ -15,6 +16,8 @@ export interface ITournament {
   newSchedule(): Match[][];
   resetSchedule(): Match[][];
   leaderboard(): void;
+  export(): Syncable;
+  import(params: Syncable): TournamentParams;
 }
 
 export interface HasID {
@@ -53,7 +56,7 @@ export interface GetParticipants {
   participants: Players | Teams;
 }
 
-export type RawSchedule = [string, string][][][];
+export type RawSchedule = string[][];
 
 export interface MatchesMap {
   [key: string]: Match;
@@ -62,9 +65,9 @@ export interface MatchesMap {
 // freakin weird syntax I chose:
 // rawSchedule gives rounds with player names
 // schedule gives rounds with matchIDs
-// matches is a map with key/value => matchId/match
+// matches is a Map with key:value => matchId:match
 export interface ScheduleInfo {
-  rawSchedule?: RawSchedule;
+  rawSchedule: RawSchedule;
   schedule: Match[][];
   matches: MatchesMap;
 }

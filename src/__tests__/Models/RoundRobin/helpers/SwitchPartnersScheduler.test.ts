@@ -1,4 +1,5 @@
-import { Players, ScheduleInfo } from '@interfaces/interfaces';
+import { MatchesMap, Players, ScheduleInfo } from '@interfaces/interfaces';
+import Match from '@models/Match';
 import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
 import {
   buildOpponentsGraph,
@@ -14,7 +15,13 @@ describe('Switch Partners Round Robin Scheduler', () => {
     tournament = RoundRobinScheduler.switchPartners(eightPlayers);
   });
   it('for eight players should calculate raw Schedule correctly', () => {
-    expect(tournament.rawSchedule).toEqual(eightPlayerTournament);
+    const matchesCopy: MatchesMap = { ...tournament.matches };
+    for (let round of tournament.rawSchedule) {
+      for (let matchId of round) {
+        delete matchesCopy[matchId];
+      }
+    }
+    expect(Object.keys(matchesCopy).length).toBe(0);
   });
 
   it('for 30 players should give an error as there nos no way to calculate it', () => {
@@ -32,9 +39,14 @@ describe('Switch Partners Round Robin Scheduler', () => {
 
     if (!tournament.rawSchedule) return;
     for (let round of tournament.rawSchedule) {
-      for (let match of round) {
-        const [firstLocal, secondLocal] = match[0];
-        const [firstVisitor, secondVisitor] = match[1];
+      for (let matchId of round) {
+        const match: Match = tournament.matches[matchId];
+
+        const [{ id: firstLocal }, { id: secondLocal }] = match.home.players;
+        const [
+          { id: firstVisitor },
+          { id: secondVisitor },
+        ] = match.away.players;
 
         // updated played against graph
         updatePlayerGraph(opponentsGraph[firstLocal], [
