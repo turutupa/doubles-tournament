@@ -15,4 +15,3 @@ export default class BracketsSingleElimination
   public addTeam = this.participants.addTeam;
   public addTeams = this.participants.addTeams;
 }
-

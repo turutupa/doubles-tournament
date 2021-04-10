@@ -1,11 +1,11 @@
-import Tournament from '@models/Tournament';
+import TeamsController from '@controllers/TeamsController';
 import {
   ITournament,
-  TournamentParams,
-  Teams,
   ScheduleInfo,
+  Teams,
+  TournamentParams,
 } from '@interfaces/interfaces';
-import TeamsController from '@controllers/TeamsController';
+import Tournament from '@models/Tournament';
 
 export default class BracketsSingleElimination
   extends Tournament<TeamsController>

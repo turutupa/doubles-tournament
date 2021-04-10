@@ -42,7 +42,7 @@ export default class RoundRobinScheduler {
       participants,
     );
 
-    let rawSchedule: [string, string][][][] = [];
+    let rawSchedule: string[][] = [];
     let schedule: Match[][] = []; // Rounds with ID's of the matches
     let matches: MatchesMap = {}; // Map of matches stored by ID
     const positionsMatrix: number[][] = SequenceGenerator.calculate(
@@ -60,10 +60,17 @@ export default class RoundRobinScheduler {
         this.sitParticipantInTable(participant, playerPosition, tables);
       }
 
-      const round = this.translateTablesToMatches(tables);
-      const roundOfIDs = this.createMatches(participants, round, matches);
-      schedule.push(roundOfIDs);
-      rawSchedule.push(round);
+      const round: [string, string][][] = this.translateTablesToMatches(tables);
+      const roundOfMatches: Match[] = this.createMatches(
+        participants,
+        round,
+        matches,
+      );
+      const roundOfIDs: string[] = roundOfMatches.map(
+        (match: Match) => match.id,
+      );
+      schedule.push(roundOfMatches);
+      rawSchedule.push(roundOfIDs);
     }
 
     return {

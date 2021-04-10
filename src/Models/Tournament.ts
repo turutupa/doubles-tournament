@@ -1,3 +1,4 @@
+import { Syncable } from '@/interfaces/sync';
 import Leaderboard from '@controllers/Leaderboard';
 import MatchController from '@controllers/MatchController';
 import PlayersController from '@controllers/PlayersController';
@@ -35,7 +36,11 @@ export default abstract class Tournament<
   protected params?: TournamentParams;
   protected participants: T;
   protected tournamentScheduler: (participants: any) => ScheduleInfo;
-  protected _schedule: ScheduleInfo = { schedule: [], matches: {} };
+  protected _schedule: ScheduleInfo = {
+    rawSchedule: [],
+    schedule: [],
+    matches: {},
+  };
 
   constructor(
     participants: T,
@@ -107,5 +112,13 @@ export default abstract class Tournament<
     }
 
     return Leaderboard.sortBy.call(this, participants, sortable, ascending);
+  }
+
+  public import(): TournamentParams {
+    return {};
+  }
+
+  public export(): Syncable {
+    return {} as Syncable;
   }
 }
