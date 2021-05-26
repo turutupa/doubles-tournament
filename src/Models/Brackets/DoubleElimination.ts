@@ -11,9 +11,8 @@ export default class BracketsSingleElimination
     super(new TeamsController(), BracketsScheduler.doubleElimination, params);
   }
 
-  readonly team = this.participants.team;
-  readonly teams = this.participants.teams;
-  readonly addTeam = this.participants.addTeam;
-  readonly addTeams = this.participants.addTeams;
-  readonly importTeams = this.participants.import;
+  public team = this.participants.team;
+  public teams = this.participants.teams;
+  public addTeam = this.participants.addTeam;
+  public addTeams = this.participants.addTeams;
 }

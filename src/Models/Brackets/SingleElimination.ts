@@ -1,19 +1,16 @@
 import BracketsScheduler from '@brackets/helpers/BracketsScheduler';
 import TeamsController from '@controllers/TeamsController';
 import { ITournament, TournamentParams } from '@interfaces/interfaces';
+import Brackets from '@models/Brackets/Brackets';
 import Tournament from '@models/Tournament';
+import Match from '@models/Match';
 
 export default class BracketsSingleElimination
-  extends Tournament<TeamsController>
+  extends Brackets
   implements ITournament
 {
-  constructor(params?: TournamentParams) {
-    super(new TeamsController(), BracketsScheduler.singleElimination, params);
-  }
-
-  readonly team = this.participants.team;
-  readonly teams = this.participants.teams;
-  readonly addTeam = this.participants.addTeam;
-  readonly addTeams = this.participants.addTeams;
-  readonly importTeams = this.participants.import;
+  public team = this.participants.team;
+  public teams = this.participants.teams;
+  public addTeam = this.participants.addTeam;
+  public addTeams = this.participants.addTeams;
 }

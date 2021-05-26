@@ -36,7 +36,7 @@ export default abstract class Tournament<
   public location: string;
   protected params?: TournamentParams;
   protected participants: T;
-  protected tournamentScheduler: (participants: any) => ScheduleInfo;
+  protected tournamentScheduler: (...participants: any[]) => ScheduleInfo;
   protected _schedule: ScheduleInfo = {
     rawSchedule: [],
     schedule: [],
@@ -45,7 +45,7 @@ export default abstract class Tournament<
 
   constructor(
     participants: T,
-    tournamentScheduler: (participants: any) => ScheduleInfo,
+    tournamentScheduler: (...participants: any[]) => ScheduleInfo,
     params?: TournamentParams,
   ) {
     this.id = uuid();
@@ -59,9 +59,11 @@ export default abstract class Tournament<
     this.tournamentScheduler = tournamentScheduler;
   }
 
-  public get schedule(): Match[][] {
-    return this._schedule.schedule;
-  }
+  abstract get schedule(): Match[][];
+
+  // public get schedule(): Match[][] {
+  //   return this._schedule.schedule;
+  // }
 
   public newSchedule(): Match[][] {
     if (this._schedule.schedule.length > 0) {

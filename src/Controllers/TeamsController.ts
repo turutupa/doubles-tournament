@@ -10,10 +10,6 @@ export default class TeamsController implements GetParticipants {
     this._teams = teams ?? (new Map() as Teams);
   }
 
-  public import(teams: Teams): void {
-    this._teams = teams;
-  }
-
   public get participants(): Teams {
     return this.teams ?? (new Map() as Teams);
   }

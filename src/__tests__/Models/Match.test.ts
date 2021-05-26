@@ -8,8 +8,8 @@ describe('Team', () => {
   let playerTwo: Player;
   let playerThree: Player;
   let playerFour: Player;
-  let localTeam: Team;
-  let visitorTeam: Team;
+  let homeTeam: Team;
+  let awayTeam: Team;
   let match: Match;
   let randomID: string;
 
@@ -19,11 +19,11 @@ describe('Team', () => {
     playerThree = new Player('playerThree');
     playerFour = new Player('playerFour');
 
-    localTeam = new Team([playerOne, playerTwo]);
-    visitorTeam = new Team([playerThree, playerFour]);
+    homeTeam = new Team([playerOne, playerTwo]);
+    awayTeam = new Team([playerThree, playerFour]);
     randomID = String(uuid());
 
-    match = new Match(localTeam, visitorTeam);
+    match = new Match(homeTeam, awayTeam);
   });
 
   it('has a generated random ID', () => {

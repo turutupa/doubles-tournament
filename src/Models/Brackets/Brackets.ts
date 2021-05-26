@@ -6,8 +6,9 @@ import {
   TournamentParams,
 } from '@interfaces/interfaces';
 import Tournament from '@models/Tournament';
+import Match from '@models/Match';
 
-export default class BracketsSingleElimination
+export default class Brackets
   extends Tournament<TeamsController>
   implements ITournament
 {
@@ -18,8 +19,13 @@ export default class BracketsSingleElimination
     super(new TeamsController(), scheduler, params);
   }
 
-  readonly team = this.participants.team;
-  readonly teams = this.participants.teams;
-  readonly addTeam = this.participants.addTeam;
-  readonly addTeams = this.participants.addTeams;
+  public get schedule(): Match[][] {
+    this.tournamentScheduler(this.teams, this._schedule);
+    return this._schedule.schedule;
+  }
+
+  public team = this.participants.team;
+  public teams = this.participants.teams;
+  public addTeam = this.participants.addTeam;
+  public addTeams = this.participants.addTeams;
 }

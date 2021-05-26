@@ -13,6 +13,7 @@ export default class MatchController {
     // what if results has [6,3,5] [6, 6, 6]
     // is a tie in a given set an option?
     const match: Match = matches[id];
+    if (!match.home || !match.away) return;
     match.scoreboard = results;
 
     this.updatePlayersAndTeams(match.home, match.away, results);
