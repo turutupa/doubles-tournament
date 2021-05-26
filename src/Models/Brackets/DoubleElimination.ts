@@ -5,13 +5,15 @@ import BracketsScheduler from '@brackets/helpers/BracketsScheduler';
 
 export default class BracketsSingleElimination
   extends Tournament<TeamsController>
-  implements ITournament {
+  implements ITournament
+{
   constructor(params?: TournamentParams) {
     super(new TeamsController(), BracketsScheduler.doubleElimination, params);
   }
 
-  public team = this.participants.team;
-  public teams = this.participants.teams;
-  public addTeam = this.participants.addTeam;
-  public addTeams = this.participants.addTeams;
+  readonly team = this.participants.team;
+  readonly teams = this.participants.teams;
+  readonly addTeam = this.participants.addTeam;
+  readonly addTeams = this.participants.addTeams;
+  readonly importTeams = this.participants.import;
 }

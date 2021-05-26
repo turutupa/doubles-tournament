@@ -62,9 +62,9 @@ export interface MatchesMap {
   [key: string]: Match;
 }
 
-// freakin weird syntax I chose:
-// rawSchedule gives rounds with player names
-// schedule gives rounds with matchIDs
+// Freakin weird syntax I chose:
+// rawSchedule has rounds of match IDs. That is, it only contains the ID of the match (string fomart)
+// schedule is a matrix of Matches
 // matches is a Map with key:value => matchId:match
 export interface ScheduleInfo {
   rawSchedule: RawSchedule;

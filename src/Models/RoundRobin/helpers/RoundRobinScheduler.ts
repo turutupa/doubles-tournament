@@ -26,7 +26,7 @@ export default class RoundRobinScheduler {
   public static switchPartners(players: Players): ScheduleInfo {
     if (!tablesForSwitchRR[players.size]) {
       throw new Error(
-        `Tables for ${players.size} number of players not calculated`,
+        `Tables for ${players.size} number of players not non-existant.`,
       );
     }
 
@@ -34,20 +34,18 @@ export default class RoundRobinScheduler {
     return RoundRobinScheduler.calculate<Players>(players, tables);
   }
 
-  public static calculate<T extends ParticipantMap>(
+  private static calculate<T extends ParticipantMap>(
     participants: T,
     tables: IsTable[],
   ): ScheduleInfo {
-    const listOfParticipants: Participant[] = this.calculateListOfParticipants<T>(
-      participants,
-    );
+    const listOfParticipants: Participant[] =
+      this.calculateListOfParticipants<T>(participants);
 
     let rawSchedule: string[][] = [];
     let schedule: Match[][] = []; // Rounds with ID's of the matches
     let matches: MatchesMap = {}; // Map of matches stored by ID
-    const positionsMatrix: number[][] = SequenceGenerator.calculate(
-      listOfParticipants,
-    );
+    const positionsMatrix: number[][] =
+      SequenceGenerator.calculate(listOfParticipants);
 
     // Each Round players are assigned to their respective table
     // When tables are calculated the round is pushed to schedule

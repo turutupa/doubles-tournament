@@ -1,4 +1,4 @@
-import { Syncable, SyncablePlayers } from '@/interfaces/sync';
+import { Syncable, SyncablePlayers } from '@interfaces/sync';
 import { ITournament, TournamentParams } from '@interfaces/interfaces';
 import Tournament from '@models/TournamentFactory';
 import { getPlayers, getTeams } from '@tests/MockData/ParticipantsHelper';

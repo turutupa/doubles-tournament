@@ -4,13 +4,15 @@ import PlayersController from '@controllers/PlayersController';
 import RoundRobinScheduler from '@roundrobin/helpers/RoundRobinScheduler';
 export default class SwitchTournament
   extends Tournament<PlayersController>
-  implements ITournament {
+  implements ITournament
+{
   constructor(params?: TournamentParams) {
     super(new PlayersController(), RoundRobinScheduler.switchPartners, params);
   }
 
-  public player = this.participants.player;
-  public players = this.participants.players;
-  public addPlayer = this.participants.addPlayer;
-  public addPlayers = this.participants.addPlayers;
+  readonly player = this.participants.player;
+  readonly players = this.participants.players;
+  readonly addPlayer = this.participants.addPlayer;
+  readonly addPlayers = this.participants.addPlayers;
+  readonly importPlayers = this.participants.import;
 }

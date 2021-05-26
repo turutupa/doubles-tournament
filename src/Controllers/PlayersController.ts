@@ -8,6 +8,10 @@ export default class PlayersController implements GetParticipants {
     this._players = players ?? (new Map() as Players);
   }
 
+  public import(players: Players): void {
+    this._players = players;
+  }
+
   public get participants(): Players {
     return this._players ?? (new Map() as Players);
   }

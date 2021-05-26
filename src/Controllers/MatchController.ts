@@ -10,6 +10,8 @@ export default class MatchController {
     results: number[][],
   ): void {
     // update match
+    // what if results has [6,3,5] [6, 6, 6]
+    // is a tie in a given set an option?
     const match: Match = matches[id];
     match.scoreboard = results;
 

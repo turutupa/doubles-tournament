@@ -1,4 +1,4 @@
-import { Syncable } from '@/interfaces/sync';
+import { Syncable } from '@interfaces/sync';
 import Leaderboard from '@controllers/Leaderboard';
 import MatchController from '@controllers/MatchController';
 import PlayersController from '@controllers/PlayersController';
@@ -25,8 +25,9 @@ const {
 } = defaultTournamentValues;
 
 export default abstract class Tournament<
-  T extends PlayersController | TeamsController
-> implements ITournament {
+  T extends PlayersController | TeamsController,
+> implements ITournament
+{
   public id: string;
   public name: string;
   public date: Date;
@@ -114,8 +115,8 @@ export default abstract class Tournament<
     return Leaderboard.sortBy.call(this, participants, sortable, ascending);
   }
 
-  public import(): TournamentParams {
-    return {};
+  public import(data: Syncable): TournamentParams {
+    return {} as TournamentParams;
   }
 
   public export(): Syncable {

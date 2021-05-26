@@ -1,4 +1,4 @@
-import { Syncable } from '@/interfaces/sync';
+import { Syncable } from '@interfaces/sync';
 
 export default class Sync {
   public static import(): Syncable {
