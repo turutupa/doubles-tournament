@@ -67,5 +67,19 @@ describe('Brackets Scheduler', () => {
     expect(games).toBe((6 + 6 + 3) * 2); // number of games won per match times 2 matches
     expect(sets).toBe(2 * 2); // number of sets won per match times 2 matches
   });
+
+  // it('[SingleElimination] should have a winner after 3 rounds of 7 players', ()=>{
+  //   const results = [
+  //     [6,6,3],
+  //     [3,3,6]
+  //   ]
+
+  //   singleElimination.newSchedule();
+  //   const addResults = (match: Match)=>{
+  //     if(!match.home || !match.away) return;
+  //     match.addResults(results);
+  //   }
+  //   const firstRound = singleElimination.schedule;
+  // })
   // it('[DoubleElimination] should create a first round of matches', () => {});
 });
