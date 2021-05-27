@@ -48,6 +48,10 @@ describe('Brackets Scheduler', () => {
       match.addResults(results);
     });
 
+    // trigger this to check no matter how many times
+    // you call .schedule it doesn't break the schedudle:
+    singleElimination.schedule;
+    singleElimination.schedule;
     const secondRound = singleElimination.schedule[1];
     secondRound.forEach((match) => {
       if (!match.home || !match.away) return;
