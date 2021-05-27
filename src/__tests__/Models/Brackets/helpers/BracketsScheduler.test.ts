@@ -16,14 +16,14 @@ describe('Brackets Scheduler', () => {
     ['thirteen', 'fourteen'],
   ];
   let singleElimination: BracketsSingleElimination;
-  // let doubleElimination: BracketsDoubleElimination;
+  let doubleElimination: BracketsDoubleElimination;
 
   beforeEach(() => {
     singleElimination = Tournament.Brackets.singleElimination(tournamentInfo);
-    // doubleElimination = new BracketsDoubleElimination(tournamentInfo);
+    doubleElimination = Tournament.Brackets.doubleElimination(tournamentInfo);
 
     singleElimination.addTeams(teams);
-    // doubleElimination.importTeams(teams);
+    doubleElimination.addTeams(teams);
   });
 
   it('[SingleElimination] should create a first round of matches', () => {
@@ -72,18 +72,36 @@ describe('Brackets Scheduler', () => {
     expect(sets).toBe(2 * 2); // number of sets won per match times 2 matches
   });
 
-  // it('[SingleElimination] should have a winner after 3 rounds of 7 players', ()=>{
-  //   const results = [
-  //     [6,6,3],
-  //     [3,3,6]
-  //   ]
+  it('[SingleElimination] should have a winner after 3 rounds of 7 players', () => {
+    const results = [
+      [6, 6, 3],
+      [3, 3, 6],
+    ];
 
-  //   singleElimination.newSchedule();
-  //   const addResults = (match: Match)=>{
-  //     if(!match.home || !match.away) return;
-  //     match.addResults(results);
-  //   }
-  //   const firstRound = singleElimination.schedule;
-  // })
-  // it('[DoubleElimination] should create a first round of matches', () => {});
+    singleElimination.newSchedule();
+    const addResults = (match: Match, _: number): void => {
+      if (!match.home || !match.away) return;
+      match.addResults(results);
+    };
+
+    const firstRound = singleElimination.schedule[0];
+    firstRound.forEach(addResults);
+    const secondRound = singleElimination.schedule[1];
+    secondRound.forEach(addResults);
+    const thirdRound = singleElimination.schedule[2];
+    thirdRound.forEach(addResults);
+
+    const winner: Team = thirdRound[0].home!;
+    const { wins, losses, sets, games } = winner;
+    expect(wins).toBe(3);
+    expect(losses).toBe(0);
+    expect(sets).toBe(2 * 3); // 2 sets won for 3 matches played
+    expect(games).toBe(15 * 3); // 15 games won for 3 matches played
+  });
+
+  // it('[DoubleElimination] should create a first round of matches', () => {
+  //   const firstRound = doubleElimination.newSchedule()[0];
+
+  //   expect(firstRound.length).toBe(4);
+  // });
 });
