@@ -1,10 +1,9 @@
-import { getTeams } from '@tests/MockData/ParticipantsHelper';
 import { tournamentInfo } from '@tests/MockData/TournamentInitialParams';
 import Tournament from '@models/TournamentFactory';
 import BracketsSingleElimination from '@models/Brackets/SingleElimination';
 import BracketsDoubleElimination from '@models/Brackets/DoubleElimination';
-import { ScheduleInfo, Teams } from '@interfaces/interfaces';
 import Match from '@models/Match';
+import Team from '@models/Team';
 
 describe('Brackets Scheduler', () => {
   const teams: [string, string][] = [
@@ -35,21 +34,38 @@ describe('Brackets Scheduler', () => {
     // for 7 teams, first round is expected to have 4 matches
   });
 
-  // it('[SingleElimination] should create a second round of matches with the winners of previous round', () => {
-  //   const schedule: Match[][] = singleElimination.newSchedule();
-  //   const firstRound = schedule[0];
-  //   // update matches results
-  //   firstRound.forEach((match) => {
-  //     match.addResults([
-  //       [6, 6, 3],
-  //       [3, 3, 6],
-  //     ]);
-  //   });
+  it('[SingleElimination] should create a second round of matches with the winners of previous round', () => {
+    const results = [
+      [6, 6, 3],
+      [3, 3, 6],
+    ];
 
-  //   const secondRound = singleElimination.schedule;
-  //   const expectedNumberOfRounds = Math.ceil(Math.ceil(teams.length / 2) / 2);
-  //   expect(secondRound.length).toBe(expectedNumberOfRounds);
-  // });
+    const schedule: Match[][] = singleElimination.newSchedule();
+    const firstRound = schedule[0];
+    // update matches results
+    firstRound.forEach((match: Match) => {
+      if (!match.home || !match.away) return;
+      match.addResults(results);
+    });
 
+    const secondRound = singleElimination.schedule[1];
+    secondRound.forEach((match) => {
+      if (!match.home || !match.away) return;
+
+      match.addResults(results);
+    });
+
+    const expectedNumberOfRounds = Math.ceil(Math.ceil(teams.length / 2) / 2);
+    expect(secondRound.length).toBe(expectedNumberOfRounds);
+
+    // lets check the values of a winning team
+    const firstTeam: Team = secondRound[0].home!;
+    const { wins, losses, games, sets } = firstTeam;
+
+    expect(wins).toBe(2);
+    expect(losses).toBe(0);
+    expect(games).toBe((6 + 6 + 3) * 2); // number of games won per match times 2 matches
+    expect(sets).toBe(2 * 2); // number of sets won per match times 2 matches
+  });
   // it('[DoubleElimination] should create a first round of matches', () => {});
 });

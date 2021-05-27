@@ -20,7 +20,7 @@ export default class Brackets
   }
 
   public get schedule(): Match[][] {
-    this.tournamentScheduler(this.teams, this._schedule);
+    this._schedule = this.tournamentScheduler(this.teams, this._schedule);
     return this._schedule.schedule;
   }
 

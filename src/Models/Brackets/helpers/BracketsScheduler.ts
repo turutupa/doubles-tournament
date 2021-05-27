@@ -25,10 +25,12 @@ class BracketsScheduler {
     const lastRound: Match[] = [
       ...schedule.schedule[schedule.schedule.length - 1],
     ];
-    const listOfWinnersOfLastRound = scheduler.getWinnersOfRound(lastRound);
+    const listOfWinnersOfLastRound: Team[] =
+      scheduler.getWinnersOfRound(lastRound);
     const updatedSchedule =
       scheduler.createScheduleInfoFromListOfTeamsAndUpdateScheduleInfo(
         listOfWinnersOfLastRound,
+        schedule,
       );
     return updatedSchedule;
   }
