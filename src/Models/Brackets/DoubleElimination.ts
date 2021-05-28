@@ -1,6 +1,4 @@
-import { ITournament, TournamentParams } from '@interfaces/interfaces';
-import TeamsController from '@controllers/TeamsController';
-import BracketsScheduler from '@brackets/helpers/BracketsScheduler';
+import { ITournament } from '@interfaces/interfaces';
 import Brackets from '@models/Brackets/Brackets';
 
 export default class BracketsDoubleElimination

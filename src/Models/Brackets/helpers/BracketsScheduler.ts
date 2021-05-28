@@ -1,6 +1,6 @@
 import { ScheduleInfo, Teams } from '@interfaces/interfaces';
-import Match from '@models/Match';
 import SingleEliminationScheduler from '@models/Brackets/helpers/SingleEliminationScheduler';
+import DoubleEliminationScheduler from './DoubleEliminationScheduler';
 
 class BracketsScheduler {
   public static singleElimination(
@@ -10,12 +10,11 @@ class BracketsScheduler {
     return SingleEliminationScheduler.calculate(teams, schedule);
   }
 
-  public static doubleElimination(teams: Teams): ScheduleInfo {
-    return {
-      schedule: [] as Match[][],
-      matches: {},
-      rawSchedule: [],
-    };
+  public static doubleElimination(
+    teams: Teams,
+    schedule?: ScheduleInfo,
+  ): ScheduleInfo {
+    return DoubleEliminationScheduler.calculate(teams, schedule);
   }
 }
 

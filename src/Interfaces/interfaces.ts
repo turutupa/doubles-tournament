@@ -72,6 +72,17 @@ export interface ScheduleInfo {
   matches: MatchesMap;
 }
 
+export interface ScheduleInfoDoubleElimination {
+  rawSchedule: RawSchedule;
+  schedule: DoubleEliminationSchedule;
+  matches: MatchesMap;
+}
+
+interface DoubleEliminationSchedule {
+  winners: Match[][];
+  losers: Match[][];
+}
+
 export type ParticipantMap = Map<string, Participant>;
 export type Players = Map<string, Player>;
 export type Teams = Map<string, Team>;

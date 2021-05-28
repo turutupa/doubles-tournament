@@ -61,10 +61,6 @@ export default abstract class Tournament<
 
   abstract get schedule(): Match[][];
 
-  // public get schedule(): Match[][] {
-  //   return this._schedule.schedule;
-  // }
-
   public newSchedule(): Match[][] {
     if (this._schedule.schedule.length > 0) {
       throw new Error(`

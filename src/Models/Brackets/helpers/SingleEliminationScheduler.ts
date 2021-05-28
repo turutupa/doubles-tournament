@@ -6,11 +6,12 @@ import {
 } from '@interfaces/interfaces';
 import Team from '@models/Team';
 import Match from '@models/Match';
+import SchedulerHelper from './SchedulerHelper';
 
 export default class SingleEliminationScheduler {
   public static calculate(teams: Teams, schedule?: ScheduleInfo) {
     if (!schedule || !schedule.schedule.length) {
-      const listOfTeams: Team[] = this.listOfTeams(teams);
+      const listOfTeams: Team[] = SchedulerHelper.listOfTeams(teams);
       const initSchedule =
         this.createScheduleInfoFromListOfTeamsAndUpdateScheduleInfo(
           listOfTeams,
@@ -21,10 +22,11 @@ export default class SingleEliminationScheduler {
     const lastRound: Match[] = [
       ...schedule.schedule[schedule.schedule.length - 1],
     ];
-    const lastRoundIsComplete = this.isRoundComplete(lastRound);
+    const lastRoundIsComplete = SchedulerHelper.isRoundComplete(lastRound);
     if (!lastRoundIsComplete) return schedule;
 
-    const listOfWinnersOfLastRound: Team[] = this.getWinnersOfRound(lastRound);
+    const listOfWinnersOfLastRound: Team[] =
+      SchedulerHelper.getWinnersOfRound(lastRound);
     const updatedSchedule =
       this.createScheduleInfoFromListOfTeamsAndUpdateScheduleInfo(
         listOfWinnersOfLastRound,
@@ -33,29 +35,10 @@ export default class SingleEliminationScheduler {
     return updatedSchedule;
   }
 
-  private static isRoundComplete(lastRound: Match[]) {
-    return lastRound.every((match: Match) => {
-      const winner = match.getWinner();
-      return winner;
-    });
-  }
-
-  private static getWinnersOfRound(round: Match[]): Team[] {
-    const winners: Team[] = [];
-    for (let match of round) {
-      const winner = match.getWinner();
-      if (winner) {
-        winners.push(winner);
-      }
-    }
-    return winners;
-  }
-
   private static createScheduleInfoFromListOfTeamsAndUpdateScheduleInfo(
     teams: Team[],
     scheduleInfo?: ScheduleInfo,
   ): ScheduleInfo {
-    const isOddNumberOfTeams = teams.length % 2 !== 0;
     const round: Match[] = [];
     const roundOfIDs: string[] = [];
     const schedule = {
@@ -85,13 +68,5 @@ export default class SingleEliminationScheduler {
     schedule.rawSchedule.push(roundOfIDs);
 
     return schedule;
-  }
-
-  private static listOfTeams(teams: Teams): Team[] {
-    const teamsList: Team[] = [];
-    for (let [_, team] of teams) {
-      teamsList.push(team);
-    }
-    return teamsList;
   }
 }
