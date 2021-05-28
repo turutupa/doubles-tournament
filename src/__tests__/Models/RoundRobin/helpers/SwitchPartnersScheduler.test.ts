@@ -42,11 +42,10 @@ describe('Switch Partners Round Robin Scheduler', () => {
       for (let matchId of round) {
         const match: Match = tournament.matches[matchId];
 
+        if (!match.home || !match.away) fail('Should have teams in match');
         const [{ id: firstLocal }, { id: secondLocal }] = match.home.players;
-        const [
-          { id: firstVisitor },
-          { id: secondVisitor },
-        ] = match.away.players;
+        const [{ id: firstVisitor }, { id: secondVisitor }] =
+          match.away.players;
 
         // updated played against graph
         updatePlayerGraph(opponentsGraph[firstLocal], [

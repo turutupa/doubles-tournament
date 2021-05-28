@@ -31,11 +31,14 @@ describe('Team', () => {
   });
 
   it('should have 2 players in locals and 2 players in visitors', () => {
+    if (!match.home || !match.away) fail('Should have players added to team');
+
     expect(match.home.players.length).toBe(2);
     expect(match.away.players.length).toBe(2);
   });
 
   it('should have unique players', () => {
+    if (!match.home || !match.away) fail('Should have players added to team');
     const [firstHome, secondHome] = match.home.players;
     const [firstAway, secondAway] = match.away.players;
 
@@ -49,6 +52,7 @@ describe('Team', () => {
   });
 
   it('should add new scoreboard to Match and update Players and Teams', () => {
+    if (!match.home || !match.away) fail('Should have players added to team');
     const scoreboard = [
       [6, 5, 1],
       [5, 6, 6],

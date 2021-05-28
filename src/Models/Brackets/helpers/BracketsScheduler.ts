@@ -1,6 +1,6 @@
 import { ScheduleInfo, Teams } from '@interfaces/interfaces';
 import SingleEliminationScheduler from '@models/Brackets/helpers/SingleEliminationScheduler';
-import DoubleEliminationScheduler from './DoubleEliminationScheduler';
+import DoubleEliminationScheduler from '@models/Brackets/helpers/DoubleEliminationScheduler';
 
 class BracketsScheduler {
   public static singleElimination(

@@ -107,6 +107,7 @@ describe('Fixed Teams Round Robin Tournament', () => {
       sets: 2,
     };
 
+    if (!home || !away) fail('Should exist home and away teams');
     expect(home.stats).toEqual(homeResults);
     expect(away.stats).toEqual(awayResults);
 
@@ -114,6 +115,8 @@ describe('Fixed Teams Round Robin Tournament', () => {
     const schedule: Match[][] = tournament.schedule;
     const firstMatch: Match = schedule[0][0];
 
+    if (!firstMatch.home || !firstMatch.away)
+      fail('Should exist teams in first match');
     expect(firstMatch.scoreboard).toEqual(scoreboard);
     expect(firstMatch.home.stats).toEqual(homeResults);
     expect(firstMatch.away.stats).toEqual(awayResults);

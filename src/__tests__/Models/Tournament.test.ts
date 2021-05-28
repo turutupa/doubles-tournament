@@ -22,6 +22,10 @@ describe('Abstract Tournament', () => {
         params,
       );
     }
+
+    public get schedule() {
+      return [];
+    }
   }
   let tournament: TestTournament;
   let tournamentWithParams: TestTournament;

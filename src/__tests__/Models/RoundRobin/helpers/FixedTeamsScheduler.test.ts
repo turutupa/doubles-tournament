@@ -31,6 +31,7 @@ describe('Fixed Teams Round Robin Scheduler', () => {
         const home = match.home;
         const away = match.away;
 
+        if (!home || !away) fail('Should exist team in match');
         updatePlayerGraph(opponentsGraph[home.id], [away.id]);
         updatePlayerGraph(opponentsGraph[away.id], [home.id]);
       }
