@@ -5,6 +5,15 @@ import BracketsDoubleElimination from '@models/Brackets/DoubleElimination';
 import Match from '@models/Match';
 import Team from '@models/Team';
 
+const results = [
+  [6, 6, 3],
+  [3, 3, 6],
+];
+const addResults = (match: Match, _: number): void => {
+  if (!match.home || !match.away) return;
+  match.addResults(results);
+};
+
 describe('Brackets Scheduler', () => {
   const teams: [string, string][] = [
     ['one', 'two'],
@@ -73,16 +82,7 @@ describe('Brackets Scheduler', () => {
   });
 
   it('[SingleElimination] should have a winner after 3 rounds of 7 players', () => {
-    const results = [
-      [6, 6, 3],
-      [3, 3, 6],
-    ];
-
     singleElimination.newSchedule();
-    const addResults = (match: Match, _: number): void => {
-      if (!match.home || !match.away) return;
-      match.addResults(results);
-    };
 
     const firstRound = singleElimination.schedule[0];
     firstRound.forEach(addResults);
@@ -99,9 +99,17 @@ describe('Brackets Scheduler', () => {
     expect(games).toBe(15 * 3); // 15 games won for 3 matches played
   });
 
-  // it('[DoubleElimination] should create a first round of matches', () => {
-  //   const firstRound = doubleElimination.newSchedule()[0];
+  it('[DoubleElimination] should create a first round of matches', () => {
+    const firstRound = doubleElimination.newSchedule()[0];
 
-  //   expect(firstRound.length).toBe(4);
+    expect(firstRound.length).toBe(4);
+  });
+
+  // it('[DoubleElimination] should create a second round of matches. Formed by winners plus losers', () => {
+  //   const firstRound = doubleElimination.newSchedule()[0];
+  //   firstRound.forEach(addResults);
+
+  //   const secondRound = doubleElimination.schedule[1];
+  //   expect(secondRound.length).toBe(4);
   // });
 });

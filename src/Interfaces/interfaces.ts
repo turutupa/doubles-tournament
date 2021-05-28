@@ -70,6 +70,8 @@ export interface ScheduleInfo {
   rawSchedule: RawSchedule;
   schedule: Match[][];
   matches: MatchesMap;
+  winners?: Match[][];
+  losers?: Match[][];
 }
 
 export interface ScheduleInfoDoubleElimination {
